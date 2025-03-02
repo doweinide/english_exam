@@ -1,4 +1,30 @@
-@import './base.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg text-white transition-colors duration-200;
+  }
+  .btn-primary {
+    @apply bg-blue-500 hover:bg-blue-600;
+  }
+  .btn-success {
+    @apply bg-green-500 hover:bg-green-600;
+  }
+  .btn-warning {
+    @apply bg-yellow-500 hover:bg-yellow-600;
+  }
+  .btn-danger {
+    @apply bg-red-500 hover:bg-red-600;
+  }
+  .input {
+    @apply border rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500;
+  }
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+}
 
 #app {
   max-width: 1280px;
