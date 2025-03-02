@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-
+import { setupRouterGuard } from './guard'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,5 +24,7 @@ const router = createRouter({
     },
   ],
 })
+
+setupRouterGuard(router)
 
 export default router
