@@ -15,12 +15,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
   const plugins: PluginOption[] = [
     vue(),
     vueJsx(),
-  ]
-
-  // 根据环境变量决定是否启用 devtools
-  if (VITE_USE_DEVTOOLS === 'true') {
-    plugins.push(vueDevTools as any)
-  }
+    VITE_USE_DEVTOOLS === 'true' && vueDevTools(),
+  ].filter(Boolean)
 
   // 生产环境启用压缩
   if (command === 'build' && VITE_USE_COMPRESS === 'true') {
