@@ -31,8 +31,8 @@
         <p class="text-gray-600 mb-6">{{ chapter.description }}</p>
         
         <!-- 题集列表 -->
-        <transition name="expand">
-          <div v-if="expandedChapters[chapter.id]" class="question-sets grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="question-sets-container" :style="{ maxHeight: expandedChapters[chapter.id] ? '2000px' : '0', opacity: expandedChapters[chapter.id] ? 1 : 0, transform: expandedChapters[chapter.id] ? 'translateY(0)' : 'translateY(-10px)', overflow: 'hidden', transition: 'all 0.5s ease' }">
+          <div class="question-sets grid grid-cols-1 md:grid-cols-2 gap-6">
             <div 
               v-for="set in chapter.questionSets" 
               :key="set.id"
@@ -78,7 +78,7 @@
             </div>
             </div>
           </div>
-        </transition>
+        </div>
       </div>
     </div>
   </div>
@@ -98,13 +98,22 @@ const expandedChapters = reactive<Record<string, boolean>>({})
 
 // 初始化所有章节为展开状态
 onMounted(() => {
+  console.log('组件挂载，开始初始化数据')
   // 初始化题库数据
   questionStore.initQuestionData(questionData)
   
+  // 确保数据加载后再初始化展开状态
+  console.log('题库数据加载完成，章节数量:', questionStore.chapters.length)
+  
   // 初始化所有章节为展开状态
-  questionStore.chapters.forEach(chapter => {
-    expandedChapters[chapter.id] = true
-  })
+  if (questionStore.chapters.length > 0) {
+    questionStore.chapters.forEach(chapter => {
+      console.log('初始化章节展开状态:', chapter.id)
+      expandedChapters[chapter.id] = true
+    })
+  } else {
+    console.warn('没有找到章节数据')
+  }
 })
 
 // 开始做题
@@ -155,7 +164,21 @@ function formatDate(timestamp: number): string {
 function toggleChapter(chapterId: string, event: Event) {
   // 阻止事件冒泡，避免触发题集的点击事件
   event.stopPropagation()
-  expandedChapters[chapterId] = !expandedChapters[chapterId]
+  
+  // 获取当前状态
+  const currentState = expandedChapters[chapterId]
+  console.log('当前章节状态:', chapterId, currentState)
+  
+  // 切换状态
+  expandedChapters[chapterId] = !currentState
+  
+  // 记录新状态
+  console.log('章节状态已切换为:', chapterId, expandedChapters[chapterId])
+  
+  // 强制DOM更新
+  setTimeout(() => {
+    console.log('DOM更新后章节状态:', chapterId, expandedChapters[chapterId])
+  }, 0)
 }
 </script>
 
@@ -198,18 +221,12 @@ function toggleChapter(chapterId: string, event: Event) {
 }
 
 /* 展开/收起动画 */
-.expand-enter-active,
-.expand-leave-active {
-  transition: all 0.3s ease;
-  max-height: 1000px;
-  opacity: 1;
-  overflow: hidden;
+.question-sets-container {
+  padding-top: 1rem;
+  will-change: max-height, opacity, transform;
 }
 
-.expand-enter-from,
-.expand-leave-to {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
+.question-sets {
+  padding-bottom: 0.5rem;
 }
 </style>
