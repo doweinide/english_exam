@@ -126,7 +126,7 @@
       
       <div class="flex justify-between">
         <button 
-          v-if="!questionStore.moveToNextQuestion()"
+          v-if="isLastQuestion"
           @click="finishQuestionSet"
           class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
         >
@@ -167,6 +167,12 @@ const currentQuestion = computed(() => questionStore.currentQuestion)
 const progressPercentage = computed(() => {
   if (!currentSet.value) return 0
   return (questionStore.currentQuestionIndex / currentSet.value.questions.length) * 100
+})
+
+// 判断是否为最后一题
+const isLastQuestion = computed(() => {
+  if (!currentSet.value) return false
+  return questionStore.currentQuestionIndex === currentSet.value.questions.length - 1
 })
 
 // 监听问题变化，重置选中状态
@@ -242,8 +248,12 @@ function getCorrectOptionText(): string {
 
 // 下一题
 function nextQuestion() {
+  // 先重置选中状态
   selectedOptionId.value = ''
   isCorrect.value = false
+  
+  // 移动到下一题
+  questionStore.moveToNextQuestion()
 }
 
 // 完成题集
