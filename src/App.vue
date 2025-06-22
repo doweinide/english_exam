@@ -3,19 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header class="bg-white shadow-sm">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center">
-        <h1 class="text-xl font-bold text-indigo-600">英语刷题系统</h1>
-      </div>
 
-      <nav class="flex space-x-4">
-        <RouterLink to="/" class="text-gray-600 hover:text-indigo-600 transition-colors">首页</RouterLink>
-        <RouterLink to="/about" class="text-gray-600 hover:text-indigo-600 transition-colors">关于</RouterLink>
-        <RouterLink to="/demo" class="text-gray-600 hover:text-indigo-600 transition-colors">工具演示</RouterLink>
-      </nav>
-    </div>
-  </header>
 
   <main class="container mx-auto py-6">
     <RouterView />
