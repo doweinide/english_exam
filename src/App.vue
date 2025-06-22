@@ -1,24 +1,25 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <header class="bg-white shadow-sm">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center">
+        <h1 class="text-xl font-bold text-indigo-600">英语刷题系统</h1>
+      </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">首页</RouterLink>
-        <RouterLink to="/about">关于</RouterLink>
-        <RouterLink to="/demo">工具演示</RouterLink>
+      <nav class="flex space-x-4">
+        <RouterLink to="/" class="text-gray-600 hover:text-indigo-600 transition-colors">首页</RouterLink>
+        <RouterLink to="/about" class="text-gray-600 hover:text-indigo-600 transition-colors">关于</RouterLink>
+        <RouterLink to="/demo" class="text-gray-600 hover:text-indigo-600 transition-colors">工具演示</RouterLink>
       </nav>
     </div>
   </header>
 
-  <RouterView />
+  <main class="container mx-auto py-6">
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
