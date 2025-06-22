@@ -88,6 +88,7 @@ export const useQuestionStore = defineStore('question', () => {
           correctAnswers: 0,
           completedQuestions: 0
         }
+        console.log(`初始化题集进度: ${set.id}`, questionSetProgress[set.id])
       })
       
       progress[chapter.id] = {
@@ -98,6 +99,7 @@ export const useQuestionStore = defineStore('question', () => {
     })
     
     chapterProgress.value = progress
+    console.log('初始化所有章节进度完成:', chapterProgress.value)
     saveProgress()
   }
   
@@ -122,7 +124,42 @@ export const useQuestionStore = defineStore('question', () => {
     // 更新进度
     if (currentChapterId.value && currentQuestionSetId.value) {
       const progress = chapterProgress.value[currentChapterId.value]
-      const setProgress = progress.questionSetProgress[currentQuestionSetId.value]
+      if (!progress) {
+        console.error('章节进度不存在:', currentChapterId.value)
+        // 尝试初始化章节进度
+        if (currentChapter.value) {
+          chapterProgress.value[currentChapterId.value] = {
+            chapterId: currentChapterId.value,
+            questionSetProgress: {},
+            totalCorrectRate: 0
+          }
+          console.log(`重新初始化章节进度: ${currentChapterId.value}`)
+        } else {
+          return isCorrect
+        }
+      }
+      
+      // 重新获取进度（可能刚刚初始化）
+      const updatedProgress = chapterProgress.value[currentChapterId.value]
+      
+      // 检查题集进度
+      let setProgress = updatedProgress.questionSetProgress[currentQuestionSetId.value]
+      if (!setProgress) {
+        console.error('题集进度不存在:', currentQuestionSetId.value)
+        // 尝试初始化题集进度
+        if (currentQuestionSet.value) {
+          updatedProgress.questionSetProgress[currentQuestionSetId.value] = {
+            questionSetId: currentQuestionSetId.value,
+            totalQuestions: currentQuestionSet.value.questions.length,
+            correctAnswers: 0,
+            completedQuestions: 0
+          }
+          console.log(`重新初始化题集进度: ${currentQuestionSetId.value}`, updatedProgress.questionSetProgress[currentQuestionSetId.value])
+          setProgress = updatedProgress.questionSetProgress[currentQuestionSetId.value]
+        } else {
+          return isCorrect
+        }
+      }
       
       setProgress.completedQuestions += 1
       if (isCorrect) {
@@ -144,6 +181,11 @@ export const useQuestionStore = defineStore('question', () => {
   // 更新章节总正确率
   function updateChapterCorrectRate(chapterId: string) {
     const progress = chapterProgress.value[chapterId]
+    if (!progress) {
+      console.error('章节进度不存在:', chapterId)
+      return
+    }
+    
     let totalCorrect = 0
     let totalCompleted = 0
     
@@ -217,17 +259,99 @@ export const useQuestionStore = defineStore('question', () => {
     return null
   }
   
+  // 检查当前题集是否全部做对
+  function isCurrentSetAllCorrect(): boolean {
+    if (!currentChapter.value || !currentQuestionSet.value) return false
+    
+    // 获取当前题集的所有问题ID
+    const questionIds = currentQuestionSet.value.questions.map(q => q.id)
+    
+    // 获取当前题集的最新答题记录（每个问题的最后一次回答）
+    const latestAnswers = new Map<string, UserAnswer>()
+    
+    // 遍历所有答题记录，找出每个问题的最新回答
+    userAnswers.value.forEach(answer => {
+      if (questionIds.includes(answer.questionId)) {
+        const existingAnswer = latestAnswers.get(answer.questionId)
+        
+        // 如果没有该问题的回答，或者当前回答比已存在的更新，则更新
+        if (!existingAnswer || answer.timestamp > existingAnswer.timestamp) {
+          latestAnswers.set(answer.questionId, answer)
+        }
+      }
+    })
+    
+    // 检查是否所有问题都已回答，且全部正确
+    if (latestAnswers.size !== questionIds.length) {
+      // 有问题未回答
+      return false
+    }
+    
+    // 检查是否所有回答都正确
+    for (const answer of latestAnswers.values()) {
+      if (!answer.isCorrect) {
+        return false
+      }
+    }
+    
+    return true
+  }
+  
   // 移动到下一个题集
-  function moveToNextQuestionSet(): boolean {
+  function moveToNextQuestionSet(): { success: boolean, reset?: boolean } {
+    // 检查当前题集是否全部做对
+    if (!isCurrentSetAllCorrect()) {
+      // 如果没有全部做对，重置当前题集进度并重新开始
+      resetCurrentSetProgress()
+      return { success: true, reset: true }
+    }
+    
+    // 如果全部做对，移动到下一个题集
     const nextSet = getNextQuestionSet()
     
     if (nextSet) {
+      // 在切换前，确保下一个题集的进度已初始化
+      ensureProgressInitialized(nextSet.chapterId, nextSet.questionSetId)
+      
+      // 切换到下一个题集
       setCurrentChapter(nextSet.chapterId)
       setCurrentQuestionSet(nextSet.questionSetId)
-      return true
+      return { success: true, reset: false }
     }
     
-    return false
+    // 如果没有下一个题集，也返回成功但标记为重置
+    return { success: true, reset: true }
+  }
+  
+  // 确保章节和题集进度已初始化
+  function ensureProgressInitialized(chapterId: string, questionSetId: string) {
+    // 检查章节进度是否存在
+    if (!chapterProgress.value[chapterId]) {
+      console.log(`初始化缺失的章节进度: ${chapterId}`)
+      chapterProgress.value[chapterId] = {
+        chapterId: chapterId,
+        questionSetProgress: {},
+        totalCorrectRate: 0
+      }
+    }
+    
+    // 检查题集进度是否存在
+    const chapter = chapters.value.find(c => c.id === chapterId)
+    if (chapter) {
+      const questionSet = chapter.questionSets.find(s => s.id === questionSetId)
+      if (questionSet && !chapterProgress.value[chapterId].questionSetProgress[questionSetId]) {
+        console.log(`初始化缺失的题集进度: ${questionSetId}`)
+        chapterProgress.value[chapterId].questionSetProgress[questionSetId] = {
+          questionSetId: questionSetId,
+          totalQuestions: questionSet.questions.length,
+          correctAnswers: 0,
+          completedQuestions: 0
+        }
+      }
+    }
+    
+    // 保存更新后的进度
+    saveProgress()
   }
   
   // 重置当前题集进度（重新开始做题）
@@ -235,7 +359,27 @@ export const useQuestionStore = defineStore('question', () => {
     if (!currentChapterId.value || !currentQuestionSetId.value) return
     
     const progress = chapterProgress.value[currentChapterId.value]
+    if (!progress) {
+      console.error('章节进度不存在:', currentChapterId.value)
+      return
+    }
+    
     const setProgress = progress.questionSetProgress[currentQuestionSetId.value]
+    if (!setProgress) {
+      console.error('题集进度不存在:', currentQuestionSetId.value)
+      // 如果题集进度不存在，尝试重新初始化
+      if (currentQuestionSet.value) {
+        progress.questionSetProgress[currentQuestionSetId.value] = {
+          questionSetId: currentQuestionSetId.value,
+          totalQuestions: currentQuestionSet.value.questions.length,
+          correctAnswers: 0,
+          completedQuestions: 0
+        }
+        console.log(`重新初始化题集进度: ${currentQuestionSetId.value}`, progress.questionSetProgress[currentQuestionSetId.value])
+      } else {
+        return
+      }
+    }
     
     // 过滤掉当前题集的答题记录
     const currentSetQuestionIds = currentQuestionSet.value?.questions.map(q => q.id) || []
@@ -252,6 +396,7 @@ export const useQuestionStore = defineStore('question', () => {
     
     // 重置当前问题索引
     currentQuestionIndex.value = 0
+    console.log('重置题集进度完成，当前问题索引重置为0')
   }
   
   // 切换中文显示
@@ -295,6 +440,7 @@ export const useQuestionStore = defineStore('question', () => {
     getNextQuestionSet,
     getQuestionCorrectRate,
     resetCurrentSetProgress,
-    toggleChineseDisplay
+    toggleChineseDisplay,
+    isCurrentSetAllCorrect
   }
 })
