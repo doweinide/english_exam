@@ -1,7 +1,46 @@
-import type { Chapter } from "@/types/question";
+import type { Chapter, QuestionSet } from "@/types/question";
+
+/**
+ * 初始化题集的ID和标题
+ * @param data 原始题库数据
+ * @returns 初始化后的题库数据
+ */
+function initQuestionSetsData(data: Chapter[]): Chapter[] {
+  // 深拷贝数据，避免修改原始数据
+  const newData = JSON.parse(JSON.stringify(data)) as Chapter[];
+  
+  // 记录每种类型的题集数量
+  const typeCounter: Record<string, number> = {
+    reading: 0,
+    cloze: 0
+  };
+  
+  // 遍历所有章节和题集
+  newData.forEach((chapter, chapterIndex) => {
+    // 更新章节ID（如果需要）
+    if (!chapter.id) {
+      chapter.id = `chapter${chapterIndex + 1}`;
+    }
+    
+    // 遍历题集并更新ID和标题
+    chapter.questionSets.forEach((set) => {
+      // 根据类型计数
+      typeCounter[set.type]++;
+      
+      // 更新ID
+      set.id = `${set.type}${typeCounter[set.type]}`;
+      
+      // 更新标题
+      const typeText = set.type === 'reading' ? '阅读理解' : '完形填空';
+      set.title = `${typeText} 第${typeCounter[set.type]}篇`;
+    });
+  });
+  
+  return newData;
+}
 
 // 示例题库数据
-export const questionData: Chapter[] = [
+const rawQuestionData: Chapter[] = [
   {
     id: "chapter1",
     title: "第一套题",
@@ -10476,3 +10515,6 @@ Tests in Cambridge, Massachusetts, where five drivers were asked to follow the s
     questionSets: [],
   },
 ];
+
+// 导出初始化后的题库数据
+export const questionData = initQuestionSetsData(rawQuestionData);
