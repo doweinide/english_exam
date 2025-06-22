@@ -180,6 +180,56 @@ export const useQuestionStore = defineStore('question', () => {
     return false // 已经是最后一题
   }
   
+  // 获取下一个题集
+  function getNextQuestionSet(): { chapterId: string, questionSetId: string } | null {
+    if (!currentChapter.value) return null
+    
+    // 获取当前章节中的所有题集
+    const questionSets = currentChapter.value.questionSets
+    
+    // 找到当前题集在数组中的索引
+    const currentSetIndex = questionSets.findIndex(set => set.id === currentQuestionSetId.value)
+    
+    // 如果找到了当前题集，并且不是最后一个题集
+    if (currentSetIndex !== -1 && currentSetIndex < questionSets.length - 1) {
+      // 返回同一章节中的下一个题集
+      return {
+        chapterId: currentChapterId.value,
+        questionSetId: questionSets[currentSetIndex + 1].id
+      }
+    }
+    
+    // 如果当前题集是当前章节的最后一个题集，尝试找下一个章节的第一个题集
+    const chapterIndex = chapters.value.findIndex(chapter => chapter.id === currentChapterId.value)
+    
+    if (chapterIndex !== -1 && chapterIndex < chapters.value.length - 1) {
+      const nextChapter = chapters.value[chapterIndex + 1]
+      if (nextChapter.questionSets.length > 0) {
+        // 返回下一个章节的第一个题集
+        return {
+          chapterId: nextChapter.id,
+          questionSetId: nextChapter.questionSets[0].id
+        }
+      }
+    }
+    
+    // 如果没有下一个题集，返回null
+    return null
+  }
+  
+  // 移动到下一个题集
+  function moveToNextQuestionSet(): boolean {
+    const nextSet = getNextQuestionSet()
+    
+    if (nextSet) {
+      setCurrentChapter(nextSet.chapterId)
+      setCurrentQuestionSet(nextSet.questionSetId)
+      return true
+    }
+    
+    return false
+  }
+  
   // 重置当前题集进度（重新开始做题）
   function resetCurrentSetProgress() {
     if (!currentChapterId.value || !currentQuestionSetId.value) return
@@ -209,6 +259,21 @@ export const useQuestionStore = defineStore('question', () => {
     showChinese.value = !showChinese.value
   }
   
+  // 获取题目的正确率
+  function getQuestionCorrectRate(questionId: string): number {
+    // 过滤出该题目的所有答题记录
+    const questionAnswers = userAnswers.value.filter(answer => answer.questionId === questionId)
+    
+    // 如果没有答题记录，返回0
+    if (questionAnswers.length === 0) return 0
+    
+    // 计算正确的次数
+    const correctCount = questionAnswers.filter(answer => answer.isCorrect).length
+    
+    // 返回正确率
+    return (correctCount / questionAnswers.length) * 100
+  }
+  
   return { 
     chapters,
     userAnswers,
@@ -226,6 +291,9 @@ export const useQuestionStore = defineStore('question', () => {
     setCurrentChapter,
     setCurrentQuestionSet,
     moveToNextQuestion,
+    moveToNextQuestionSet,
+    getNextQuestionSet,
+    getQuestionCorrectRate,
     resetCurrentSetProgress,
     toggleChineseDisplay
   }

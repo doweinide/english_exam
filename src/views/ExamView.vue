@@ -12,6 +12,14 @@
         返回
       </button>
       
+      <!-- 当前题目正确率 -->
+      <div v-if="currentQuestion" class="question-stats px-3 py-1 rounded-full bg-gray-100 text-sm">
+        <span class="text-gray-600">正确率: </span>
+        <span :class="getCorrectRateClass(questionCorrectRate)" class="font-medium">
+          {{ formatCorrectRate(questionCorrectRate) }}%
+        </span>
+      </div>
+      
       <div class="flex items-center">
         <span class="mr-2 text-sm">显示中文翻译</span>
         <button 
@@ -175,6 +183,12 @@ const isLastQuestion = computed(() => {
   return questionStore.currentQuestionIndex === currentSet.value.questions.length - 1
 })
 
+// 计算当前题目的正确率
+const questionCorrectRate = computed(() => {
+  if (!currentQuestion.value) return 0
+  return questionStore.getQuestionCorrectRate(currentQuestion.value.id)
+})
+
 // 监听问题变化，重置选中状态
 watch(currentQuestion, () => {
   selectedOptionId.value = ''
@@ -258,7 +272,18 @@ function nextQuestion() {
 
 // 完成题集
 function finishQuestionSet() {
-  router.push('/')
+  // 尝试移动到下一个题集
+  const hasNextSet = questionStore.moveToNextQuestionSet()
+  
+  if (hasNextSet) {
+    // 如果有下一个题集，重置选中状态
+    selectedOptionId.value = ''
+    isCorrect.value = false
+    console.log('无缝连接到下一个题集:', questionStore.currentQuestionSet?.title)
+  } else {
+    // 如果没有下一个题集，返回主页
+    router.push('/')
+  }
 }
 
 // 返回
@@ -269,6 +294,19 @@ function goBack() {
 // 切换中文显示
 function toggleChinese() {
   questionStore.toggleChineseDisplay()
+}
+
+// 格式化正确率
+function formatCorrectRate(rate: number): string {
+  return rate.toFixed(1)
+}
+
+// 根据正确率获取样式类
+function getCorrectRateClass(rate: number): string {
+  if (rate === 0) return 'text-gray-500'
+  if (rate < 60) return 'text-red-500'
+  if (rate < 80) return 'text-yellow-500'
+  return 'text-green-500'
 }
 </script>
 
