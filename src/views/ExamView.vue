@@ -54,11 +54,11 @@
       </div>
     </div>
     
-    <!-- 内容区域：文章可滚动，问题固定 -->
+    <!-- 内容区域：动态布局，文章最高3%，选项flex:1占领高度 -->
     <div class="content-area flex-grow flex flex-col overflow-hidden pb-20">
-      <!-- 阅读理解文章（可滚动区域） -->
-      <div v-if="currentSet?.type === 'reading' && currentSet.article" class="article-container mb-4 bg-white rounded-lg shadow-md p-4 overflow-y-auto flex-shrink">
-        <div class="article-header mb-4">
+      <!-- 阅读理解文章（可滚动区域，最高3%高度） -->
+      <div v-if="currentSet?.type === 'reading' && currentSet.article" class="article-container mb-4 bg-white rounded-lg shadow-md p-4 overflow-y-auto">
+        <div class="article-header mb-2">
           <h2 class="text-xl font-semibold">{{ currentSet.article.title }}</h2>
           <h3 v-if="questionStore.showChinese && currentSet.article.titleCN" class="text-lg text-gray-600 mt-1">
             {{ currentSet.article.titleCN }}
@@ -73,8 +73,8 @@
         </div>
       </div>
       
-      <!-- 问题区域（固定在底部） -->
-      <div v-if="currentQuestion" class="question-container bg-white rounded-lg shadow-md p-4 mb-4 flex-shrink-0">
+      <!-- 问题区域（动态高度） -->
+      <div v-if="currentQuestion" class="question-container bg-white rounded-lg shadow-md p-4 mb-4 flex-grow">
       <div class="question-text text-lg font-medium mb-4">
         <span>{{ currentQuestion.text }}</span>
         <p v-if="questionStore.showChinese && currentQuestion.textCN" class="text-gray-600 mt-1 text-base">
@@ -82,16 +82,16 @@
         </p>
       </div>
       
-      <!-- 选项列表 -->
-      <div class="options-list space-y-3">
+      <!-- 选项列表 - 使用flex布局占领高度 -->
+      <div class="options-list flex flex-col h-full">
         <div 
           v-for="option in currentQuestion.options" 
           :key="option.id"
-          class="option-item p-3 border rounded-lg cursor-pointer transition-colors"
+          class="option-item p-3 border rounded-lg cursor-pointer transition-colors flex-1 mb-3 flex items-center"
           :class="getOptionClass(option.id)"
           @click="selectOption(option.id)"
         >
-          <div class="flex items-start">
+          <div class="flex items-start w-full">
             <div class="option-marker w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0"
                 :class="getOptionMarkerClass(option.id)">
               <span v-if="selectedOptionId && option.id === currentQuestion.correctOptionId" class="text-white">
@@ -104,7 +104,7 @@
                 {{ option.id.slice(-1) }}
               </span>
             </div>
-            <div>
+            <div class="flex-1">
               <div>{{ option.text }}</div>
               <div v-if="questionStore.showChinese && option.textCN" class="text-gray-600 text-sm mt-1">
                 {{ option.textCN }}
@@ -116,7 +116,7 @@
     </div>
     
       <!-- 答题结果 -->
-      <div v-if="selectedOptionId" class="result-container pb-24 flex-shrink-0 overflow-y-auto max-h-[40vh]">
+      <div v-if="selectedOptionId" class="result-container pb-24 flex-shrink-0 overflow-y-auto">
         <div 
           class="result-message p-4 rounded-lg mb-4" 
           :class="isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
@@ -353,24 +353,39 @@ function getCorrectRateClass(rate: number): string {
   display: flex;
   flex-direction: column;
   height: calc(100vh - 180px); /* 减去顶部导航栏和题集信息的高度 */
+  overflow: hidden;
 }
 
 .article-container {
-  max-height: 40vh; /* 文章区域最大高度为视口高度的40% */
+  max-height: 3vh; /* 文章区域最大高度为视口高度的3% */
   overflow-y: auto; /* 允许垂直滚动 */
+  flex-shrink: 0; /* 防止文章区域被压缩 */
 }
 
 .question-container {
   overflow-y: auto; /* 如果问题内容过长，允许滚动 */
-  max-height: 40vh; /* 问题区域最大高度为视口高度的40% */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* 问题区域占据剩余空间 */
 }
 
 .option-item {
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  height: 100%;
 }
 
 .option-item:hover:not(.selected) {
   border-color: #6366f1;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .article-content {
