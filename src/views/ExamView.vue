@@ -55,7 +55,7 @@
     </div>
     
     <!-- 内容区域：文章可滚动，问题固定 -->
-    <div class="content-area flex-grow flex flex-col overflow-hidden">
+    <div class="content-area flex-grow flex flex-col overflow-hidden pb-20">
       <!-- 阅读理解文章（可滚动区域） -->
       <div v-if="currentSet?.type === 'reading' && currentSet.article" class="article-container mb-4 bg-white rounded-lg shadow-md p-4 overflow-y-auto flex-shrink">
         <div class="article-header mb-4">
@@ -116,7 +116,7 @@
     </div>
     
       <!-- 答题结果 -->
-      <div v-if="selectedOptionId" class="result-container mb-4 flex-shrink-0">
+      <div v-if="selectedOptionId" class="result-container pb-24 flex-shrink-0 overflow-y-auto max-h-[40vh]">
         <div 
           class="result-message p-4 rounded-lg mb-4" 
           :class="isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
@@ -134,7 +134,7 @@
           </div>
         </div>
         
-        <div class="flex justify-between">
+        <div class="flex justify-between fixed bottom-4 left-0 right-0 bg-white p-4 shadow-lg rounded-lg mx-4 z-50">
           <button 
             v-if="isLastQuestion"
             @click="finishQuestionSet"
@@ -275,12 +275,20 @@ function nextQuestion() {
 
 // 完成题集
 function finishQuestionSet() {
+  console.log('完成题集开始，当前章节:', questionStore.currentChapterId, '当前题集:', questionStore.currentQuestionSetId)
+  
   // 检查当前题集是否全部做对
   const allCorrect = questionStore.isCurrentSetAllCorrect && questionStore.isCurrentSetAllCorrect()
+  console.log('当前题集是否全部做对:', allCorrect)
   
   if (allCorrect) {
+    // 获取下一个题集信息（用于调试）
+    const nextSet = questionStore.getNextQuestionSet()
+    console.log('下一个题集信息:', nextSet)
+    
     // 如果全部做对，尝试移动到下一个题集
     const result = questionStore.moveToNextQuestionSet()
+    console.log('移动到下一个题集结果:', result)
     
     if (result.success && !result.reset) {
       // 如果成功移动到下一个题集
@@ -307,6 +315,8 @@ function finishQuestionSet() {
     console.warn('问题索引未正确重置，强制设置为0')
     questionStore.currentQuestionIndex = 0
   }
+  
+  console.log('完成题集结束，当前章节:', questionStore.currentChapterId, '当前题集:', questionStore.currentQuestionSetId, '当前问题索引:', questionStore.currentQuestionIndex)
 }
 
 // 返回

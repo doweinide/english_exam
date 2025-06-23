@@ -224,38 +224,57 @@ export const useQuestionStore = defineStore('question', () => {
   
   // 获取下一个题集
   function getNextQuestionSet(): { chapterId: string, questionSetId: string } | null {
-    if (!currentChapter.value) return null
+    console.log('开始获取下一个题集，当前章节:', currentChapterId.value, '当前题集:', currentQuestionSetId.value)
+    
+    if (!currentChapter.value) {
+      console.error('当前章节不存在')
+      return null
+    }
     
     // 获取当前章节中的所有题集
     const questionSets = currentChapter.value.questionSets
+    console.log('当前章节包含题集数量:', questionSets.length, '题集列表:', questionSets.map(s => s.id))
     
     // 找到当前题集在数组中的索引
     const currentSetIndex = questionSets.findIndex(set => set.id === currentQuestionSetId.value)
+    console.log('当前题集索引:', currentSetIndex, '(从0开始计数)')
     
     // 如果找到了当前题集，并且不是最后一个题集
     if (currentSetIndex !== -1 && currentSetIndex < questionSets.length - 1) {
       // 返回同一章节中的下一个题集
+      const nextSetId = questionSets[currentSetIndex + 1].id
+      console.log('找到同一章节中的下一个题集:', nextSetId)
       return {
         chapterId: currentChapterId.value,
-        questionSetId: questionSets[currentSetIndex + 1].id
+        questionSetId: nextSetId
       }
     }
     
     // 如果当前题集是当前章节的最后一个题集，尝试找下一个章节的第一个题集
     const chapterIndex = chapters.value.findIndex(chapter => chapter.id === currentChapterId.value)
+    console.log('当前章节索引:', chapterIndex, '总章节数:', chapters.value.length)
     
     if (chapterIndex !== -1 && chapterIndex < chapters.value.length - 1) {
       const nextChapter = chapters.value[chapterIndex + 1]
+      console.log('找到下一个章节:', nextChapter.id, '包含题集数量:', nextChapter.questionSets.length)
+      
       if (nextChapter.questionSets.length > 0) {
         // 返回下一个章节的第一个题集
+        const nextSetId = nextChapter.questionSets[0].id
+        console.log('找到下一个章节的第一个题集:', nextSetId)
         return {
           chapterId: nextChapter.id,
-          questionSetId: nextChapter.questionSets[0].id
+          questionSetId: nextSetId
         }
+      } else {
+        console.log('下一个章节没有题集')
       }
+    } else {
+      console.log('已经是最后一个章节或章节不存在')
     }
     
     // 如果没有下一个题集，返回null
+    console.log('没有找到下一个题集，返回null')
     return null
   }
   
@@ -325,6 +344,8 @@ export const useQuestionStore = defineStore('question', () => {
   
   // 确保章节和题集进度已初始化
   function ensureProgressInitialized(chapterId: string, questionSetId: string) {
+    console.log(`尝试确保进度初始化: 章节=${chapterId}, 题集=${questionSetId}`)
+    
     // 检查章节进度是否存在
     if (!chapterProgress.value[chapterId]) {
       console.log(`初始化缺失的章节进度: ${chapterId}`)
@@ -336,18 +357,31 @@ export const useQuestionStore = defineStore('question', () => {
     }
     
     // 检查题集进度是否存在
-    const chapter = chapters.value.find(c => c.id === chapterId)
-    if (chapter) {
-      const questionSet = chapter.questionSets.find(s => s.id === questionSetId)
-      if (questionSet && !chapterProgress.value[chapterId].questionSetProgress[questionSetId]) {
-        console.log(`初始化缺失的题集进度: ${questionSetId}`)
-        chapterProgress.value[chapterId].questionSetProgress[questionSetId] = {
-          questionSetId: questionSetId,
-          totalQuestions: questionSet.questions.length,
-          correctAnswers: 0,
-          completedQuestions: 0
+    if (!chapterProgress.value[chapterId].questionSetProgress[questionSetId]) {
+      console.log(`题集进度不存在: ${questionSetId}，尝试初始化`)
+      
+      const chapter = chapters.value.find(c => c.id === chapterId)
+      if (chapter) {
+        console.log(`找到章节: ${chapterId}，包含 ${chapter.questionSets.length} 个题集`)
+        const questionSet = chapter.questionSets.find(s => s.id === questionSetId)
+        
+        if (questionSet) {
+          console.log(`找到题集: ${questionSetId}，包含 ${questionSet.questions.length} 个问题`)
+          chapterProgress.value[chapterId].questionSetProgress[questionSetId] = {
+            questionSetId: questionSetId,
+            totalQuestions: questionSet.questions.length,
+            correctAnswers: 0,
+            completedQuestions: 0
+          }
+          console.log(`成功初始化题集进度: ${questionSetId}`, chapterProgress.value[chapterId].questionSetProgress[questionSetId])
+        } else {
+          console.error(`未找到题集: ${questionSetId}，可用题集:`, chapter.questionSets.map(s => s.id))
         }
+      } else {
+        console.error(`未找到章节: ${chapterId}，可用章节:`, chapters.value.map(c => c.id))
       }
+    } else {
+      console.log(`题集进度已存在: ${questionSetId}`, chapterProgress.value[chapterId].questionSetProgress[questionSetId])
     }
     
     // 保存更新后的进度
