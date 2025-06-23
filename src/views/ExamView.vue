@@ -1,7 +1,7 @@
 <template>
-  <div class="exam-container p-4 flex flex-col h-screen">
+  <div class="max-w-4xl mx-auto min-h-screen w-full p-2 sm:p-4 flex flex-col h-screen">
     <!-- 顶部导航栏 -->
-    <div class="top-bar flex justify-between items-center mb-6">
+    <div class="flex justify-between items-center mb-4 sm:mb-6">
       <button 
         @click="goBack" 
         class="back-btn flex items-center text-gray-600 hover:text-gray-900 transition-colors"
@@ -36,9 +36,9 @@
     </div>
     
     <!-- 题集信息 -->
-    <div v-if="currentSet" class="question-set-info mb-6">
-      <h1 class="text-2xl font-bold mb-2">{{ currentChapter?.title }} - {{ currentSet.title }}</h1>
-      <p class="text-gray-600">{{ currentSet.description }}</p>
+    <div v-if="currentSet" class="mb-4 sm:mb-6">
+      <h1 class="text-xl sm:text-2xl font-bold mb-2">{{ currentChapter?.title }} - {{ currentSet.title }}</h1>
+      <p class="text-gray-600 text-sm sm:text-base">{{ currentSet.description }}</p>
       
       <!-- 进度信息 -->
       <div class="progress-info flex items-center mt-4">
@@ -54,59 +54,69 @@
       </div>
     </div>
     
-    <!-- 内容区域：动态布局，文章最高3%，选项flex:1占领高度 -->
-    <div class="content-area flex-grow flex flex-col overflow-hidden pb-20">
-      <!-- 阅读理解文章（可滚动区域，最高3%高度） -->
-      <div v-if="currentSet?.type === 'reading' && currentSet.article" class="article-container mb-4 bg-white rounded-lg shadow-md p-4 overflow-y-auto">
-        <div class="article-header mb-2">
-          <h2 class="text-xl font-semibold">{{ currentSet.article.title }}</h2>
-          <h3 v-if="questionStore.showChinese && currentSet.article.titleCN" class="text-lg text-gray-600 mt-1">
-            {{ currentSet.article.titleCN }}
-          </h3>
+    <!-- 内容区域：动态布局，移动端全屏显示选项 -->
+    <div class="flex-grow flex flex-col overflow-hidden pb-16 sm:pb-20 h-[calc(100vh-8.75rem)] sm:h-[calc(100vh-11.25rem)]">
+      <!-- 阅读理解文章（桌面端显示，移动端隐藏） -->
+      <div v-if="currentSet?.type === 'reading' && currentSet.article" class="hidden sm:block mb-4 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300" :class="{ 'max-h-96': isArticleExpanded, 'max-h-24': !isArticleExpanded }">
+        <div class="p-4 pb-2 flex justify-between items-start cursor-pointer" @click="toggleArticle">
+          <div class="flex-1">
+            <h2 class="text-xl font-semibold">{{ currentSet.article.title }}</h2>
+            <h3 v-if="questionStore.showChinese && currentSet.article.titleCN" class="text-lg text-gray-600 mt-1">
+              {{ currentSet.article.titleCN }}
+            </h3>
+          </div>
+          <button class="ml-2 p-1 hover:bg-gray-100 rounded transition-colors flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-300" :class="{ 'rotate-180': isArticleExpanded }" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
         </div>
         
-        <div class="article-content whitespace-pre-line">
-          <p>{{ currentSet.article.content }}</p>
-          <p v-if="questionStore.showChinese && currentSet.article.contentCN" class="text-gray-600 mt-4 border-t pt-4">
-            {{ currentSet.article.contentCN }}
-          </p>
+        <div class="overflow-hidden">
+          <div class="whitespace-pre-line p-4 pt-0" :class="{ 'overflow-y-auto max-h-80': isArticleExpanded, 'overflow-hidden max-h-16 relative': !isArticleExpanded }">
+            <p class="text-base leading-relaxed">{{ currentSet.article.content }}</p>
+            <p v-if="questionStore.showChinese && currentSet.article.contentCN" class="text-gray-600 mt-4 border-t pt-4 text-base leading-relaxed">
+              {{ currentSet.article.contentCN }}
+            </p>
+            <div v-if="!isArticleExpanded" class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+          </div>
         </div>
       </div>
       
       <!-- 问题区域（动态高度） -->
-      <div v-if="currentQuestion" class="question-container bg-white rounded-lg shadow-md p-4 mb-4 flex-grow">
-      <div class="question-text text-lg font-medium mb-4">
+      <div v-if="currentQuestion" class="bg-white rounded-lg shadow-md p-3 sm:p-4 mb-4 flex-grow flex flex-col overflow-hidden min-h-0">
+      <div class="text-base sm:text-lg font-medium mb-4 flex-shrink-0">
         <span>{{ currentQuestion.text }}</span>
-        <p v-if="questionStore.showChinese && currentQuestion.textCN" class="text-gray-600 mt-1 text-base">
+        <p v-if="questionStore.showChinese && currentQuestion.textCN" class="text-gray-600 mt-1 text-sm sm:text-base">
           {{ currentQuestion.textCN }}
         </p>
       </div>
       
       <!-- 选项列表 - 使用flex布局占领高度 -->
-      <div class="options-list flex flex-col h-full">
+      <div class="flex flex-col flex-1 gap-2 sm:gap-3 overflow-y-auto">
         <div 
           v-for="option in currentQuestion.options" 
           :key="option.id"
-          class="option-item p-3 border rounded-lg cursor-pointer transition-colors flex-1 mb-3 flex items-center"
-          :class="getOptionClass(option.id)"
+          class="p-3 sm:p-4 border rounded-lg cursor-pointer transition-all duration-200 flex items-center min-h-[3rem] sm:min-h-[3.5rem] hover:border-indigo-500"
+          :class="[getOptionClass(option.id), { 'hover:border-gray-200': selectedOptionId }]"
           @click="selectOption(option.id)"
         >
           <div class="flex items-start w-full">
-            <div class="option-marker w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0"
+            <div class="w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 transition-colors duration-200"
                 :class="getOptionMarkerClass(option.id)">
-              <span v-if="selectedOptionId && option.id === currentQuestion.correctOptionId" class="text-white">
+              <span v-if="selectedOptionId && option.id === currentQuestion.correctOptionId" class="text-white text-sm">
                 ✓
               </span>
-              <span v-else-if="selectedOptionId && option.id === selectedOptionId && option.id !== currentQuestion.correctOptionId" class="text-white">
+              <span v-else-if="selectedOptionId && option.id === selectedOptionId && option.id !== currentQuestion.correctOptionId" class="text-white text-sm">
                 ✗
               </span>
-              <span v-else>
+              <span v-else class="text-sm font-medium">
                 {{ option.id.slice(-1) }}
               </span>
             </div>
             <div class="flex-1">
-              <div>{{ option.text }}</div>
-              <div v-if="questionStore.showChinese && option.textCN" class="text-gray-600 text-sm mt-1">
+              <div class="text-sm sm:text-base leading-relaxed">{{ option.text }}</div>
+              <div v-if="questionStore.showChinese && option.textCN" class="text-gray-600 text-xs sm:text-sm mt-1 leading-relaxed">
                 {{ option.textCN }}
               </div>
             </div>
@@ -116,7 +126,7 @@
     </div>
     
       <!-- 答题结果 -->
-      <div v-if="selectedOptionId" class="result-container pb-24 flex-shrink-0 overflow-y-auto">
+      <div v-if="selectedOptionId" class="fixed bottom-2  pb-24 flex-shrink-0 overflow-y-auto">
         <div 
           class="result-message p-4 rounded-lg mb-4" 
           :class="isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
@@ -135,17 +145,23 @@
         </div>
         
         <div class="flex justify-between fixed bottom-4 left-0 right-0 bg-white p-4 shadow-lg rounded-lg mx-4 z-50">
+          <div class="flex items-center text-gray-500 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM6.5 9a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm7 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd" />
+            </svg>
+            <span>点击鼠标右键进入下一题</span>
+          </div>
           <button 
             v-if="isLastQuestion"
             @click="finishQuestionSet"
-            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+            class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm sm:text-base"
           >
             完成
           </button>
           <button 
             v-else
             @click="nextQuestion"
-            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+            class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm sm:text-base"
           >
             下一题
           </button>
@@ -158,7 +174,7 @@
 <script setup lang="ts">
 import { useQuestionStore } from '@/stores/question'
 import { useRouter } from 'vue-router'
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import type { Option } from '@/types/question'
 
 const questionStore = useQuestionStore()
@@ -168,6 +184,8 @@ const router = useRouter()
 const selectedOptionId = ref<string>('')
 // 是否回答正确
 const isCorrect = ref<boolean>(false)
+// 文章是否展开
+const isArticleExpanded = ref<boolean>(false)
 
 // 计算属性
 const currentChapter = computed(() => questionStore.currentChapter)
@@ -196,6 +214,31 @@ const questionCorrectRate = computed(() => {
 watch(currentQuestion, () => {
   selectedOptionId.value = ''
   isCorrect.value = false
+})
+
+// 添加鼠标右键事件监听
+function handleContextMenu(event: MouseEvent) {
+  // 阻止默认的右键菜单
+  event.preventDefault()
+  
+  // 如果已经选择了选项，则进入下一题
+  if (selectedOptionId.value) {
+    if (isLastQuestion.value) {
+      finishQuestionSet()
+    } else {
+      nextQuestion()
+    }
+  }
+}
+
+// 组件挂载时添加鼠标右键事件监听
+onMounted(() => {
+  window.addEventListener('contextmenu', handleContextMenu)
+})
+
+// 组件卸载时移除鼠标右键事件监听
+onUnmounted(() => {
+  window.removeEventListener('contextmenu', handleContextMenu)
 })
 
 // 选择选项
@@ -341,77 +384,30 @@ function getCorrectRateClass(rate: number): string {
   if (rate < 80) return 'text-yellow-500'
   return 'text-green-500'
 }
+
+// 切换文章展开收起
+function toggleArticle() {
+  isArticleExpanded.value = !isArticleExpanded.value
+}
 </script>
 
 <style scoped>
-.exam-container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.content-area {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 180px); /* 减去顶部导航栏和题集信息的高度 */
-  overflow: hidden;
-}
-
-.article-container {
-  max-height: 3vh; /* 文章区域最大高度为视口高度的3% */
-  overflow-y: auto; /* 允许垂直滚动 */
-  flex-shrink: 0; /* 防止文章区域被压缩 */
-}
-
-.question-container {
-  overflow-y: auto; /* 如果问题内容过长，允许滚动 */
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* 问题区域占据剩余空间 */
-}
-
-.option-item {
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  height: 100%;
-}
-
-.option-item:hover:not(.selected) {
-  border-color: #6366f1;
-}
-
-.options-list {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: space-between;
-}
-
-.article-content {
-  line-height: 1.6;
-}
-
-/* 自定义滚动条样式 */
-.article-container::-webkit-scrollbar,
-.question-container::-webkit-scrollbar {
+/* 自定义滚动条样式 - 无法用Tailwind替代的部分 */
+::-webkit-scrollbar {
   width: 6px;
 }
 
-.article-container::-webkit-scrollbar-track,
-.question-container::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 3px;
 }
 
-.article-container::-webkit-scrollbar-thumb,
-.question-container::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border-radius: 3px;
 }
 
-.article-container::-webkit-scrollbar-thumb:hover,
-.question-container::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
 </style>

@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
 
 
-  <main class="container mx-auto py-6">
+  <main class=" mx-auto py-6">
     <RouterView />
   </main>
 </template>
