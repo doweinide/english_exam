@@ -244,8 +244,18 @@ onUnmounted(() => {
 
 // 选择选项
 function selectOption(optionId: string) {
-  // 如果已经选择了选项，不允许再次选择
-  if (selectedOptionId.value) return
+  // 如果已经选择了选项，检查是否点击的是正确答案
+  if (selectedOptionId.value) {
+    // 如果点击的是正确答案，跳到下一题
+    if (optionId === currentQuestion.value?.correctOptionId) {
+      if (isLastQuestion.value) {
+        finishQuestionSet()
+      } else {
+        nextQuestion()
+      }
+    }
+    return
+  }
   
   selectedOptionId.value = optionId
   
