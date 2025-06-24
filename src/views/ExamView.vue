@@ -55,7 +55,7 @@
     </div>
     
     <!-- 内容区域：动态布局，移动端全屏显示选项 -->
-    <div class="flex-grow flex flex-col overflow-hidden pb-16 sm:pb-20 h-[calc(100vh-8.75rem)] sm:h-[calc(100vh-11.25rem)]">
+    <div class=" ">
       <!-- 阅读理解文章（桌面端显示，移动端隐藏） -->
       <div v-if="currentSet?.type === 'reading' && currentSet.article" class="hidden sm:block mb-4 bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300" :class="{ 'max-h-96': isArticleExpanded, 'max-h-24': !isArticleExpanded }">
         <div class="p-4 pb-2 flex justify-between items-start cursor-pointer" @click="toggleArticle">
@@ -93,7 +93,7 @@
       </div>
       
       <!-- 选项列表 - 使用flex布局占领高度 -->
-      <div class="flex flex-col flex-1 gap-2 sm:gap-3 overflow-y-auto">
+      <div class="flex flex-col  gap-2 sm:gap-3 overflow-y-auto">
         <div 
           v-for="option in currentQuestion.options" 
           :key="option.id"
@@ -125,8 +125,10 @@
       </div>
     </div>
     
-      <!-- 答题结果 -->
-      <div v-if="selectedOptionId" class="fixed bottom-2  pb-24 flex-shrink-0 overflow-y-auto">
+
+    </div>
+          <!-- 答题结果 -->
+          <div v-if="selectedOptionId" class="  pb-24 flex-shrink-0 overflow-y-auto">
         <div 
           class="result-message p-4 rounded-lg mb-4" 
           :class="isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
@@ -167,7 +169,6 @@
           </button>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
