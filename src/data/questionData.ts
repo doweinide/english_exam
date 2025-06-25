@@ -10512,7 +10512,1040 @@ Tests in Cambridge, Massachusetts, where five drivers were asked to follow the s
     id: "chapter8",
     title: "第8套题",
     description: "包含阅读理解和完形填空",
-    questionSets: [],
+    questionSets: [{
+      "id": "chapter1-reading2",
+      "title": "阅读理解 2",
+      "description": "关于麦当劳面临的身份危机及应对措施的阅读理解",
+      "type": "reading",
+      "article": {
+        "id": "article2",
+        "title": "McDonald's Identity Crisis",
+        "titleCN": "麦当劳的身份危机",
+        "content": `McDonalds is having a bit of an identity crisis. Recently, the burger giant announced a 5. 2% drop in profits for the first three months of this year and a 1.7% decrease in same store sales in the US. President and CEO Don Thompson emphasized that MacDonald’s would be focusing on its core products, like its Big Mac, Egg McMuffin, and its famous French fries.
+    
+    Thompsons back-to-basics vow comes in response to the sort of menu creep the chain experienced last year, when it rolled out a seemingly endless stream of limited time offers, like its Mighty Wings, a steak and egg burrito(蛋卷饼), a steak breakfast sandwich and so on.
+    
+    It's vital that McDonald’s craft a consistent message, so customers’ expectations are met when they choose to eat there. When MacDonald’s first got off the ground in the 1940s, it had a nine-item menu made up of hamburger, cheeseburger, soft drinks, milk, coffee, potato chips, and a slice of pie. It built its iconic (标志性的) reputation on guaranteeing that these food and beverage items would have the same great taste no matter the MacDonald’s location at which they were served.
+    
+    Just as crucial, too much menu diversification, which McDonald’s has suffered from lately, leads to longer customer wait times in an industry built on speed.
+    
+    “What McDonald’s workers do inside those four walls is really impressive. Everyone has their time and place, and their entire job is done in two or three steps,” says Howard Penney, managing director at Hedgeye Risk Management. Adding more processes that come with a bigger menu, specifically the smoothie (奶昔) and espresso machines, has disrupted McDonald’s restaurants’ time and motion, he says. It takes a lot longer to make a smoothie than it does to pour a fountain Coke.
+    
+    "Everything they’ve done to become all things to all people has slowed service," Penney says
+    
+    Going back to its roots could be just what McDonald’s needs. After all, it seems like a long shot for the fast food giant to become the next Chipotle or Panera since, as Penney puts it, “the core McDonald’s customer is not looking for a wrap with a cucumber in it”.`,
+        "contentCN": `麦当劳正面临着一点身份危机。最近，这家汉堡巨头宣布今年前三个月利润下降5.2%，美国同店销售额下降1.7%。总裁兼首席执行官唐·汤普森强调，麦当劳将专注于其核心产品，如巨无霸、麦满分和著名的薯条。
+    
+    汤普森回归基础的誓言是对该连锁店去年经历的菜单扩张的回应，当时它推出了一系列似乎无穷无尽的限时优惠，比如麦辣鸡翅、牛排蛋卷饼、牛排早餐三明治等等。
+    
+    麦当劳打造一个一致的形象至关重要，这样当顾客选择在那里用餐时，他们的期望就能得到满足。20世纪40年代麦当劳刚起步时，它有一份九项的菜单，包括汉堡、芝士汉堡、软饮料、牛奶、咖啡、薯片和一片派。它通过保证无论在哪个麦当劳门店供应，这些食品和饮料都能有同样出色的味道，建立了其标志性的声誉。
+    
+    同样关键的是，麦当劳最近遭受的菜单过度多样化，在这个以速度为基础的行业中导致顾客等待时间更长。
+    
+    “麦当劳员工在店内的工作真的令人印象深刻。每个人都有自己的时间和位置，他们的整个工作只需两三个步骤就能完成，”Hedgeye风险管理公司的董事总经理霍华德·彭尼说。他说，增加更多与更大菜单相关的流程，特别是奶昔和意式浓缩咖啡机，打乱了麦当劳餐厅的时间和流程。制作一杯奶昔比倒一杯汽水要花费长得多的时间。
+    
+    “他们为满足所有人的需求所做的一切都减缓了服务速度，”彭尼说。
+    
+    回归本源可能正是麦当劳所需要的。毕竟，对于这家快餐巨头来说，要成为下一个Chipotle或Panera似乎希望渺茫，因为正如彭尼所说，“麦当劳的核心顾客并不想要里面有黄瓜的卷饼”。`
+      },
+      "questions": [
+        {
+          "id": "q2-1",
+          "type": "reading",
+          "text": "How will McDonald’s deal with the identity crisis it is facing?",
+          "textCN": "麦当劳将如何应对它所面临的身份危机？",
+          "options": [
+            { "id": "q2-1-A", "text": "Stop offering new products for good", "textCN": "永远停止提供新产品" },
+            { "id": "q2-1-B", "text": "Go back to its main products", "textCN": "回归其主要产品" },
+            { "id": "q2-1-C", "text": "Work hard to make more profit.", "textCN": "努力赚取更多利润。" },
+            { "id": "q2-1-D", "text": "Promote its sales in the U.S", "textCN": "促进其在美国的销售" }
+          ],
+          "correctOptionId": "q2-1-B",
+          "explanation": "文中提到总裁兼首席执行官唐·汤普森强调麦当劳将专注于其核心产品，即回归主要产品来应对危机。"
+        },
+        {
+          "id": "q2-2",
+          "type": "reading",
+          "text": "What did McDonald’s do last year?",
+          "textCN": "麦当劳去年做了什么？",
+          "options": [
+            { "id": "q2-2-A", "text": "It offered too many limited time items", "textCN": "它提供了太多限时商品" },
+            { "id": "q2-2-B", "text": "It limited its offers to some extent", "textCN": "它在一定程度上限制了其优惠" },
+            { "id": "q2-2-C", "text": "It adjusted the prices of many products", "textCN": "它调整了许多产品的价格" },
+            { "id": "q2-2-D", "text": "It barely diversified its menu", "textCN": "它几乎没有使菜单多样化" }
+          ],
+          "correctOptionId": "q2-2-A",
+          "explanation": "文中提到汤普森回归基础的誓言是对去年菜单扩张的回应，当时推出了一系列似乎无穷无尽的限时优惠。"
+        },
+        {
+          "id": "q2-3",
+          "type": "reading",
+          "text": "What was the result of McDonald’s menu diversification?",
+          "textCN": "麦当劳菜单多样化的结果是什么？",
+          "options": [
+            { "id": "q2-3-A", "text": "McDonald’s made much profit from it.", "textCN": "麦当劳从中获得了很多利润。" },
+            { "id": "q2-3-B", "text": "McDonald’s service couldn't be improved", "textCN": "麦当劳的服务无法得到改善" },
+            { "id": "q2-3-C", "text": "Customers' expectations got met", "textCN": "顾客的期望得到了满足" },
+            { "id": "q2-3-D", "text": "Customers had to wait a longer time", "textCN": "顾客不得不等待更长时间" }
+          ],
+          "correctOptionId": "q2-3-D",
+          "explanation": "文中提到太多菜单多样化导致顾客等待时间更长。"
+        },
+        {
+          "id": "q2-4",
+          "type": "reading",
+          "text": "What slowed McDonald’s service according to Penney?",
+          "textCN": "根据彭尼的说法，是什么减缓了麦当劳的服务速度？",
+          "options": [
+            { "id": "q2-4-A", "text": "It wrongly tried to meet all people's needs", "textCN": "它错误地试图满足所有人的需求" },
+            { "id": "q2-4-B", "text": "It offered smoothie and espresso", "textCN": "它提供了奶昔和意式浓缩咖啡" },
+            { "id": "q2-4-C", "text": "Its employees worked less hard", "textCN": "它的员工工作不那么努力" },
+            { "id": "q2-4-D", "text": "It had much more customers", "textCN": "它有更多的顾客" }
+          ],
+          "correctOptionId": "q2-4-A",
+          "explanation": "彭尼说他们为满足所有人的需求所做的一切都减缓了服务速度。"
+        },
+        {
+          "id": "q2-5",
+          "type": "reading",
+          "text": "What can be inferred from the last paragraph?",
+          "textCN": "从最后一段可以推断出什么？",
+          "options": [
+            { "id": "q2-5-A", "text": "McDonald’s can learn from Chipotle or Panera.", "textCN": "麦当劳可以向Chipotle或Panera学习。" },
+            { "id": "q2-5-B", "text": "McDonald’s will become the next Chipotle one day.", "textCN": "麦当劳总有一天会成为下一个Chipotle。" },
+            { "id": "q2-5-C", "text": "McDonald’s should always be what it was at first.", "textCN": "麦当劳应该一直保持它最初的样子。" },
+            { "id": "q2-5-D", "text": "McDonald’s does not need product innovation.", "textCN": "麦当劳不需要产品创新。" }
+          ],
+          "correctOptionId": "q2-5-C",
+          "explanation": "最后一段提到回归本源可能正是麦当劳所需要的，暗示麦当劳应该保持最初的样子。"
+        }
+      ]
+    },{
+      "id": "chapter1-reading1",
+      "title": "阅读理解 1",
+      "description": "关于猫对物理和因果关系理解的阅读理解",
+      "type": "reading",
+      "article": {
+        "id": "article1",
+        "title": "Cats' Understanding of Physics and Cause and Effect",
+        "titleCN": "猫对物理和因果关系的理解",
+        "content": `The latest in cat research reveals that the lovely animal seems to have a basic grasp on both the laws of physics and the ins and outs of cause and effect.
+    　　According to a newly published study, cats seem to be able to predict the location of hiding prey（猎物） using both their ears and an inborn （天生的） understanding of how the physical world works.
+    　　It turns out that the cats were remarkably smart about what would happen when a container was tipped over. When an object did not drop out of the bottom of a rattling container, they looked at it for a longer time than they did when the container behaved as expected.
+    　　"Cats use a causal-logical understanding of noise or sounds to predict the appearance of invisible objects," lead researcher Saho Takagi says in a press release. The researchers conclude that cats hunting style may have developed based on their common-sense abilities to infer where prey is, using their hearing.
+    　　Scientists have explored this idea with other endearing creatures: babies. Like cats, babies appear to engage in what's called "preferential looking"—looking longer at things that are interesting or unusual than things they perceive as normal.
+    　　When babies' expectations are violated in experiments like the ones performed with the cats, they react much like their animal friends. Psychologists have shown that babies apparently expect their world to comply with the laws of physics and cause and effect as early as two months of age.
+    　　Does the study mean that cats will soon grasp the ins and outs of cause and effect? Maybe. Okay, so cats may not be the next physics faculty members at America's most important research universities. But by demonstrating their common sense, they've shown that the divide between cats and humans may not be that great after all.`,
+        "contentCN": `最新的猫研究表明，这种可爱的动物似乎对物理定律和因果关系的来龙去脉都有基本的理解。
+    　　根据一项新发表的研究，猫似乎能够利用它们的耳朵和对物理世界运作方式的天生理解来预测隐藏猎物的位置。
+    　　事实证明，当一个容器被打翻时，猫对会发生什么非常聪明。当一个物体没有从一个摇晃的容器底部掉出来时，它们会比容器按预期行事时看它更长时间。
+    　　“猫利用对噪音或声音的因果逻辑理解来预测无形物体的出现，”首席研究员高木佐保在一份新闻稿中说。研究人员得出结论，猫的捕猎方式可能是基于它们利用听觉推断猎物位置的常识能力发展而来的。
+    　　科学家们用其他可爱的生物——婴儿——探索了这个想法。和猫一样，婴儿似乎也会进行所谓的“偏好注视”——比起他们认为正常的事物，他们会更长时间地注视有趣或不寻常的事物。
+    　　当婴儿的期望在像对猫进行的实验中被违背时，他们的反应与他们的动物朋友非常相似。心理学家已经表明，婴儿早在两个月大的时候就显然期望他们的世界符合物理定律和因果关系。
+    　　这项研究是否意味着猫很快就会掌握因果关系的来龙去脉？也许吧。好吧，所以猫可能不会成为美国最重要的研究型大学的下一批物理教员。但是通过展示它们的常识，它们表明猫和人类之间的差距可能并没有那么大。`
+      },
+      "questions": [
+        {
+          "id": "q1-1",
+          "type": "reading",
+          "text": "What do we learn from a newly published study about cats?",
+          "textCN": "我们从一项新发表的关于猫的研究中学到了什么？",
+          "options": [
+            { "id": "q1-1-A", "text": "They can be trained to understand the physical world.", "textCN": "它们可以被训练来理解物理世界。" },
+            { "id": "q1-1-B", "text": "They know what kind of prey might be easier to hunt.", "textCN": "它们知道哪种猎物可能更容易捕猎。" },
+            { "id": "q1-1-C", "text": "They have a natural ability to locate animals they hunt.", "textCN": "它们有一种天生的能力来定位它们捕猎的动物。" },
+            { "id": "q1-1-D", "text": "They are capable of telling which way their prey flees.", "textCN": "它们能够分辨出它们的猎物往哪个方向逃跑。" }
+          ],
+          "correctOptionId": "q1-1-C",
+          "explanation": "根据文章内容‘According to a newly published study, cats seem to be able to predict the location of hiding prey（猎物） using both their ears and an inborn （天生的） understanding of how the physical world works.’可知，猫有天生的能力来定位它们捕猎的动物。"
+        },
+        {
+          "id": "q1-2",
+          "type": "reading",
+          "text": "What may account for the cats' response to the noise from the containers?",
+          "textCN": "什么可以解释猫对容器发出的噪音的反应？",
+          "options": [
+            { "id": "q1-2-A", "text": "Their inborn sensitivity to noise.", "textCN": "它们对噪音的天生敏感性。" },
+            { "id": "q1-2-B", "text": "Their unusual sense of direction.", "textCN": "它们不寻常的方向感。" },
+            { "id": "q1-2-C", "text": "Their special ability to perceive.", "textCN": "它们特殊的感知能力。" },
+            { "id": "q1-2-D", "text": "Their mastery of cause and effect.", "textCN": "它们对因果关系的掌握。" }
+          ],
+          "correctOptionId": "q1-2-D",
+          "explanation": "由文中‘Cats use a causal-logical understanding of noise or sounds to predict the appearance of invisible objects’可知，猫对因果关系的掌握可以解释它们对容器噪音的反应。"
+        },
+        {
+          "id": "q1-3",
+          "type": "reading",
+          "text": "What is characteristic of the way cats hunt, according to the Japanese researchers?",
+          "textCN": "根据日本研究人员的说法，猫的捕猎方式有什么特点？",
+          "options": [
+            { "id": "q1-3-A", "text": "They depend on their instincts.", "textCN": "它们依靠本能。" },
+            { "id": "q1-3-B", "text": "They rely mainly on their hearing.", "textCN": "它们主要依靠听觉。" },
+            { "id": "q1-3-C", "text": "They wait some time before attack.", "textCN": "它们在攻击前会等待一段时间。" },
+            { "id": "q1-3-D", "text": "They use both their ears and eyes.", "textCN": "它们同时使用耳朵和眼睛。" }
+          ],
+          "correctOptionId": "q1-3-B",
+          "explanation": "文中提到‘The researchers conclude that cats hunting style may have developed based on their common-sense abilities to infer where prey is, using their hearing.’，说明猫主要依靠听觉捕猎。"
+        },
+        {
+          "id": "q1-4",
+          "type": "reading",
+          "text": "In what way do babies behave like cats?",
+          "textCN": "婴儿在哪些方面表现得像猫？",
+          "options": [
+            { "id": "q1-4-A", "text": "They focus on what appears odd.", "textCN": "他们关注看起来奇怪的事物。" },
+            { "id": "q1-4-B", "text": "They view the world as normal.", "textCN": "他们认为世界是正常的。" },
+            { "id": "q1-4-C", "text": "They do what they prefer to do.", "textCN": "他们做自己喜欢做的事。" },
+            { "id": "q1-4-D", "text": "They are curious about everything.", "textCN": "他们对一切都好奇。" }
+          ],
+          "correctOptionId": "q1-4-A",
+          "explanation": `从文中‘Like cats, babies appear to engage in what's called "preferential looking"—looking longer at things that are interesting or unusual than things they perceive as normal.’可知，婴儿和猫一样关注看起来奇怪的事物。`
+        },
+        {
+          "id": "q1-5",
+          "type": "reading",
+          "text": "What can we conclude about cats from the passage?",
+          "textCN": "从文章中我们可以得出关于猫的什么结论？",
+          "options": [
+            { "id": "q1-5-A", "text": "They have higher intelligence than many other animals.", "textCN": "它们比许多其他动物更聪明。" },
+            { "id": "q1-5-B", "text": "They interact with the physical world much like humans.", "textCN": "它们与物理世界的互动方式很像人类。" },
+            { "id": "q1-5-C", "text": "They display extraordinarily high intelligence in hunting.", "textCN": "它们在捕猎中表现出极高的智力。" },
+            { "id": "q1-5-D", "text": "They can aid physics professors in their research work.", "textCN": "它们可以帮助物理教授进行研究工作。" }
+          ],
+          "correctOptionId": "q1-5-B",
+          "explanation": "文章最后提到‘But by demonstrating their common sense, they've shown that the divide between cats and humans may not be that great after all.’，说明猫与物理世界的互动方式和人类很像。"
+        }
+      ]
+    },{
+      "id": "chapter1-reading1",
+      "title": "阅读理解 1",
+      "description": "关于世界水监测日节水建议的阅读理解",
+      "type": "reading",
+      "article": {
+        "id": "article1",
+        "title": "World Water Monitoring Day",
+        "titleCN": "世界水监测日",
+        "content": `September 18th is World Water Monitoring Day, and American Leak Detection is offering some helpful tips and advice for people in recognition of the international awareness campaign.
+    　　"Your small investment of monitoring the water you consume can bring large profits. For example, buying a low-flush toilet can save over 18,000 gallons of water a year. It takes all of us—both individuals and businesses—to save the earth's resources," said Stan Berenbaum, president of American Leak Detection. Berenbaum recommends the following advice:
+    In General
+    　　Check all taps for drips. If a drip fills an 8-ounce glass every 15 minutes, it will lose about 180 gallons per month. That's equivalent to 2,160 gallons a year, enough for more than 30 showers or baths, Berenbaum said. Drips can usually be fixed by replacing inexpensive washers or valve (插板阀) seats.
+    　　Install flow restrictors or other conservation devices on all taps. With these in the shower alone, you can cut your water use from about 5 to 10 gallons per minute to as low as 1.4 to 3 gallons per minute.
+    　　Wrap exposed indoor and outdoor pipes to prevent breakage (破裂) in freezing weather.
+    In the Kitchen
+    　　Check kitchen cupboards beneath the sink once a week for wet spots.
+    　　Keep drinking water in the refrigerator so you don't have to run the tap until the water gets cold enough to drink.
+    　　Only run full loads in your dishwasher.
+    In the Bathroom
+    　　Check toilets for leaks. Drop a teaspoon of food coloring into the tank. If the color appears in the bowl after 15 minutes, have the "flapper" valve replaced.
+    　　Replace older toilets with new ultra-low flush models or put water displacement devices inside every toilet tank. Make them from plastic water bottles weighted down with pebbles. Do not put bricks in your tank; they can dissolve and block siphon jets (虹吸装置).`,
+        "contentCN": `9月18日是世界水监测日，美国检漏公司为响应这一国际宣传活动，为人们提供了一些有用的提示和建议。
+    　　“你对所用水进行监测的小投资能带来大收益。例如，购买一个节水马桶每年可节省超过18000加仑的水。拯救地球资源需要我们所有人——个人和企业共同努力，”美国检漏公司总裁斯坦·贝伦鲍姆说。贝伦鲍姆推荐了以下建议：
+    一般情况
+    　　检查所有水龙头是否滴水。如果一滴水每15分钟能装满一个8盎司的杯子，那么每月大约会流失180加仑水。贝伦鲍姆说，这相当于每年2160加仑，足够洗30多次淋浴或盆浴。通常更换便宜的垫圈或插板阀座就能解决滴水问题。
+    　　在所有水龙头上安装限流装置或其他节水装置。仅在淋浴喷头处安装这些装置，你就能将每分钟的用水量从约5至10加仑减少到低至1.4至3加仑。
+    　　包裹室内外暴露的管道，以防在寒冷天气破裂。
+    在厨房
+    　　每周检查一次水槽下方的厨房橱柜是否有湿斑。
+    　　把饮用水放在冰箱里，这样你就不用一直开着水龙头直到水凉到可以饮用。
+    　　洗碗机只清洗满载的餐具。
+    在浴室
+    　　检查马桶是否漏水。往水箱里滴一茶匙食用色素。如果15分钟后颜色出现在马桶盆里，就更换“挡板”阀。
+    　　用新的超低冲水型号替换旧马桶，或者在每个马桶水箱里放置排水装置。用装满鹅卵石的塑料水瓶制作排水装置。不要在水箱里放砖块；它们会溶解并堵塞虹吸装置。`
+      },
+      "questions": [
+        {
+          "id": "q1-1",
+          "type": "reading",
+          "text": "What is American Leak Detection doing on the World Water Monitoring Day?",
+          "textCN": "世界水监测日当天美国检漏公司在做什么？",
+          "options": [
+            { "id": "q1-1-A", "text": "Recognizing the international awareness campaign.", "textCN": "响应国际宣传活动。" },
+            { "id": "q1-1-B", "text": "Investing a small amount of money on low-flush toilets.", "textCN": "在节水马桶上进行少量投资。" },
+            { "id": "q1-1-C", "text": "Saving resources by keeping water from leaking.", "textCN": "通过防止漏水来节约资源。" },
+            { "id": "q1-1-D", "text": "Offering some helpful tips and advice for people.", "textCN": "为人们提供一些有用的提示和建议。" }
+          ],
+          "correctOptionId": "q1-1-D",
+          "explanation": "文章第一句提到‘September 18th is World Water Monitoring Day, and American Leak Detection is offering some helpful tips and advice for people in recognition of the international awareness campaign.’，说明美国检漏公司在世界水监测日为人们提供有用的提示和建议。"
+        },
+        {
+          "id": "q1-2",
+          "type": "reading",
+          "text": "What is the likely profit of buying a low-flush toilet?",
+          "textCN": "购买节水马桶可能的收益是什么？",
+          "options": [
+            { "id": "q1-2-A", "text": "About 2,160 gallons of water will be saved a year.", "textCN": "每年大约能节省2160加仑水。" },
+            { "id": "q1-2-B", "text": "Over 18,000 gallons of water will be saved a year.", "textCN": "每年能节省超过18000加仑水。" },
+            { "id": "q1-2-C", "text": "5 to 10 gallons of water will be saved per minute.", "textCN": "每分钟能节省5至10加仑水。" },
+            { "id": "q1-2-D", "text": "About 180 gallons of water will be saved per month.", "textCN": "每月大约能节省180加仑水。" }
+          ],
+          "correctOptionId": "q1-2-B",
+          "explanation": "文中提到‘buying a low-flush toilet can save over 18,000 gallons of water a year.’，所以购买节水马桶每年能节省超过18000加仑水。"
+        },
+        {
+          "id": "q1-3",
+          "type": "reading",
+          "text": "What can be done about tap dripping?",
+          "textCN": "水龙头滴水可以怎么做？",
+          "options": [
+            { "id": "q1-3-A", "text": "Installing flow restrictors or other conservation devices.", "textCN": "安装限流装置或其他节水装置。" },
+            { "id": "q1-3-B", "text": "Checking kitchen cupboards beneath the sink every day.", "textCN": "每天检查水槽下方的厨房橱柜。" },
+            { "id": "q1-3-C", "text": "Replacing inexpensive washers or valve seats.", "textCN": "更换便宜的垫圈或插板阀座。" },
+            { "id": "q1-3-D", "text": "Dropping a teaspoon of food coloring into the tank.", "textCN": "往水箱里滴一茶匙食用色素。" }
+          ],
+          "correctOptionId": "q1-3-C",
+          "explanation": "文中提到‘Drips can usually be fixed by replacing inexpensive washers or valve seats.’，即水龙头滴水通常更换便宜的垫圈或插板阀座就能解决。"
+        },
+        {
+          "id": "q1-4",
+          "type": "reading",
+          "text": "What is the purpose of wrapping exposed indoor and outdoor pipes?",
+          "textCN": "包裹室内外暴露管道的目的是什么？",
+          "options": [
+            { "id": "q1-4-A", "text": "Preventing the pipes from breaking in winter.", "textCN": "防止管道在冬天破裂。" },
+            { "id": "q1-4-B", "text": "Preventing the pipes from leaking in winter.", "textCN": "防止管道在冬天漏水。" },
+            { "id": "q1-4-C", "text": "Keeping the water in the pipes warm in winter.", "textCN": "冬天保持管道里的水温暖。" },
+            { "id": "q1-4-D", "text": "Reducing the amount of water used in winter.", "textCN": "减少冬天的用水量。" }
+          ],
+          "correctOptionId": "q1-4-A",
+          "explanation": "文中提到‘Wrap exposed indoor and outdoor pipes to prevent breakage in freezing weather.’，说明包裹管道是为了防止在寒冷天气破裂。"
+        },
+        {
+          "id": "q1-5",
+          "type": "reading",
+          "text": "What can be inferred about the drinking water in the kitchen?",
+          "textCN": "关于厨房的饮用水可以推断出什么？",
+          "options": [
+            { "id": "q1-5-A", "text": "It is as cold as water from a refrigerator.", "textCN": "它和冰箱里的水一样冷。" },
+            { "id": "q1-5-B", "text": "It becomes colder after running a little while.", "textCN": "流一会儿后会变冷。" },
+            { "id": "q1-5-C", "text": "It becomes warmer after running a little while.", "textCN": "流一会儿后会变暖。" },
+            { "id": "q1-5-D", "text": "Its temperature is constant all the time.", "textCN": "它的温度一直恒定。" }
+          ],
+          "correctOptionId": "q1-5-B",
+          "explanation": "文中提到‘Keep drinking water in the refrigerator so you don't have to run the tap until the water gets cold enough to drink.’，由此可推断厨房的饮用水流一会儿后会变冷。"
+        }
+      ]
+    },{
+            "id": "chapter1-reading1",
+            "title": "阅读理解 1",
+            "description": "关于美国梦及大学教育在实现成功中作用的阅读理解",
+            "type": "reading",
+            "article": {
+              "id": "article1",
+              "title": "The American Dream and College Education",
+              "titleCN": "美国梦与大学教育",
+              "content": `For the past several decades, it seems there's been a general consensus on how to get ahead in America: Get a college education, find a reliable job, and buy your own home. But do Americans still believe in that path, and if they do, is it attainable?
+    　　The most recent National Journal poll asked respondents about the American dream, what it takes to achieve their goals, and whether or not they felt a significant amount of control over their ability to be successful. Overwhelmingly, the results show that today, the idea of the American dream—and what it takes to achieve it—looks quite different than it did in the late 20th century.
+    　　By and large, people felt that their actions and hard work—not outside forces—were the deciding factor in how their lives turned out. But respondents had decidedly mixed feelings about what actions make for a better life in the current economy.
+    　　In the last seven years, Americans have grown more pessimistic about the power of education to lead to success. Even though they see going to college as a fairly achievable goal, a majority—52 percent—think that young people do not need a four-year college education in order to be successful.
+    　　Miguel Maeda, 42, who has a master's degree and works in public health, was the first in his family to go to college, which has allowed him to achieve a sense of financial stability his parents and grandparents never did.
+    　　While some, like Maeda, emphasized the value of the degree rather than the education itself, others still see college as a way to gain new perspectives and life experiences.
+    　　Sixty-year-old Will Fendley, who had a successful career in the military and never earned a college degree, thinks "personal drive" is far more important than just going to college. To Fendley, a sense of drive and purpose, as well as an effective high-school education, and basic life skills, like balancing a checkbook, are the necessary ingredients for a successful life in America.`,
+              "contentCN":`在过去的几十年里，似乎对于如何在美国取得成功已经有了一个普遍的共识：接受大学教育，找到一份可靠的工作，然后买自己的房子。但是美国人仍然相信这条道路吗？如果他们相信，这条道路可行吗？
+    　　最近的《国家杂志》民意调查询问了受访者关于美国梦、实现目标需要什么以及他们是否觉得自己对成功的能力有很大的掌控力。绝大多数结果表明，如今美国梦的概念以及实现它所需的条件与20世纪末大不相同。
+    　　总的来说，人们觉得他们的行动和努力——而不是外部力量——是他们生活结果的决定性因素。但对于在当前经济中哪些行动能带来更好的生活，受访者的看法明显不一。
+    　　在过去七年里，美国人对教育能带来成功的力量变得更加悲观。尽管他们认为上大学是一个相当可以实现的目标，但大多数人——52%——认为年轻人不需要四年制大学教育就能成功。
+    　　42岁的米格尔·前田拥有硕士学位，从事公共卫生工作，他是家里第一个上大学的人，这让他获得了一种他的父母和祖父母从未有过的经济稳定感。
+    　　虽然有些人，如前田，强调学位的价值而不是教育本身，但其他人仍然认为大学是获得新观点和生活经历的一种方式。
+    　　60岁的威尔·芬德利在军队中有着成功的职业生涯，但从未获得过大学学位，他认为“个人动力”远比仅仅上大学重要。对芬德利来说，动力和目标感，以及有效的高中教育和基本生活技能，如平衡支票簿，是在美国成功生活的必要要素。`
+            },
+            "questions": [
+              {
+                "id": "q1-1",
+                "type": "reading",
+                "text": "It used to be commonly acknowledged that to succeed in America, one had to have__________.",
+                "textCN": "过去人们普遍认为，要在美国取得成功，一个人必须拥有__________。",
+                "options": [
+                  { "id": "q1-1-A", "text": "an advanced academic degree", "textCN": "一个高等学位" },
+                  { "id": "q1-1-B", "text": "an ambition to get ahead", "textCN": "出人头地的野心" },
+                  { "id": "q1-1-C", "text": "a firm belief in their dream", "textCN": "对自己梦想的坚定信念" },
+                  { "id": "q1-1-D", "text": "a sense of drive and purpose", "textCN": "动力和目标感" }
+                ],
+                "correctOptionId": "q1-1-A",
+                "explanation": "文章开头提到For the past several decades, it seems there's been a general consensus on how to get ahead in America: Get a college education, find a reliable job, and buy your own home.说明过去人们认为在美国成功要接受大学教育，即有高等学位。"
+              },
+              {
+                "id": "q1-2",
+                "type": "reading",
+                "text": "What is the finding of the latest National Journal poll concerning the American dream?",
+                "textCN": "关于美国梦，最新的《国家杂志》民意调查结果是什么？",
+                "options": [
+                  { "id": "q1-2-A", "text": "More and more Americans are finding it hard to realize.", "textCN": "越来越多的美国人发现很难实现它。" },
+                  { "id": "q1-2-B", "text": "It remains alive among the majority of American people.", "textCN": "它在美国大多数人中仍然存在。" },
+                  { "id": "q1-2-C", "text": "Americans' idea of it has changed over the past few decades.", "textCN": "在过去几十年里，美国人对它的看法已经改变。" },
+                  { "id": "q1-2-D", "text": "An increasing number of young Americans are abandoning it.", "textCN": "越来越多的美国年轻人正在抛弃它。" }
+                ],
+                "correctOptionId": "q1-2-C",
+                "explanation": "根据文章The most recent National Journal poll asked respondents about the American dream...Overwhelmingly, the results show that today, the idea of the American dream—and what it takes to achieve it—looks quite different than it did in the late 20th century.可知美国人对美国梦的看法在过去几十年改变了。"
+              },
+              {
+                "id": "q1-3",
+                "type": "reading",
+                "text": "What do Americans now think of the role of college education in achieving success?",
+                "textCN": "美国人现在如何看待大学教育在实现成功中的作用？",
+                "options": [
+                  { "id": "q1-3-A", "text": "It still remains open to debate.", "textCN": "它仍然有待辩论。" },
+                  { "id": "q1-3-B", "text": "It has proved to be beyond doubt.", "textCN": "它已被证明是毫无疑问的。" },
+                  { "id": "q1-3-C", "text": "It is no longer as important as it used to be.", "textCN": "它不再像过去那么重要了。" },
+                  { "id": "q1-3-D", "text": "It is much better understood now than ever.", "textCN": "现在比以往任何时候都更能被理解。" }
+                ],
+                "correctOptionId": "q1-3-C",
+                "explanation": "由In the last seven years, Americans have grown more pessimistic about the power of education to lead to success. Even though they see going to college as a fairly achievable goal, a majority—52 percent—think that young people do not need a four-year college education in order to be successful.可知美国人认为大学教育在实现成功中不再像过去那么重要了。"
+              },
+              {
+                "id": "q1-4",
+                "type": "reading",
+                "text": "How do some people view college education these days?",
+                "textCN": "现在有些人如何看待大学教育？",
+                "options": [
+                  { "id": "q1-4-A", "text": "It promotes gender equality.", "textCN": "它促进性别平等。" },
+                  { "id": "q1-4-B", "text": "It needs to be strengthened.", "textCN": "它需要被加强。" },
+                  { "id": "q1-4-C", "text": "It adds to cultural diversity.", "textCN": "它增加了文化多样性。" },
+                  { "id": "q1-4-D", "text": "It helps broaden their minds.", "textCN": "它有助于拓宽他们的视野。" }
+                ],
+                "correctOptionId": "q1-4-D",
+                "explanation": "根据文章While some, like Maeda, emphasized the value of the degree rather than the education itself, others still see college as a way to gain new perspectives and life experiences.可知有些人认为大学教育有助于拓宽视野。"
+              },
+              {
+                "id": "q1-5",
+                "type": "reading",
+                "text": "What is one factor essential to success in America, according to Will Fendley?",
+                "textCN": "根据威尔·芬德利的说法，在美国取得成功的一个关键因素是什么？",
+                "options": [
+                  { "id": "q1-5-A", "text": "A desire to learn and to adapt.", "textCN": "学习和适应的愿望。" },
+                  { "id": "q1-5-B", "text": "A strong sense of responsibility.", "textCN": "强烈的责任感。" },
+                  { "id": "q1-5-C", "text": "A willingness to commit oneself.", "textCN": "愿意奉献自己。" },
+                  { "id": "q1-5-D", "text": "A clear aim and high motivation.", "textCN": "明确的目标和高度的动力。" }
+                ],
+                "correctOptionId": "q1-5-D",
+                "explanation": "由To Fendley, a sense of drive and purpose, as well as an effective high-school education, and basic life skills, like balancing a checkbook, are the necessary ingredients for a successful life in America.可知威尔·芬德利认为明确的目标和高度的动力是成功的关键因素之一。"
+              }
+            ]
+          },{
+            "id": "chapter1-reading1",
+            "title": "阅读理解 1",
+            "description": "关于年轻人政治参与的阅读理解",
+            "type": "reading",
+            "article": {
+              "id": "article1",
+              "title": "Young People's Political Engagement",
+              "titleCN": "年轻人的政治参与",
+              "content": `A new study from the Center for Information and Research on Civic Learning and Engagement (CIRCLE) at Tufts University shows that today's youth vote in larger numbers than previous generations, and a 2008 study from the Center for American Progress adds that increasing numbers of young voters and activists support traditionally liberal causes. But there's no easy way to see what those figures mean in real life. During the presidential campaign, Barack Obama assembled a racially and ideologically diverse coalition with his message of hope and change; as the reality of life under a new administration settles in, some of those supporters might become disillusioned. As the nation moves further into the Obama presidency, will politically engaged young people continue to support the president and his agenda, or will they gradually drift away?
+    
+    The writers of Generation O (short for Obama), a new Newsweek blog that seeks to chronicle the lives of a group of young Obama supporters, want to answer that question. For the next three months, Michelle Kremer and 11 other Obama supporters, ages 19 to 34, will blog about life across mainstream America, with one twist: by tying all of their ideas and experiences to the new president and his administration, the bloggers will try to start a conversation about what it means to be young and politically active in America today. Malena Amusa, a 24-year-old writer and dancer from St. Louis sees the project as a way to preserve history as it happens. Amusa, who is traveling to India this spring to finish a book, then to Senegal to teach English, has ongoing conversations with her friends about how the Obama presidency has changed their daily lives and hopes to put some of those ideas, along with her global perspective, into her posts. She's excited because, as she puts it, "I don't have to wait (until) 15 years from now" to make sense of the world.
+    
+    Henry Flores, a political-science professor at St. Mary's University, credits this younger generation's political strength to their embrace of technology. "(The Internet) exposes them to more thinking," he says, "and groups that are like-minded in different parts of the country start to come together." That's exactly what the Generation O bloggers are hoping to do. The result could be a group of young people that, like their boomer (二战后生育高峰期出生的美国人) parents, grows up with a strong sense of purpose and sheds the image of apathy (冷漠) they've inherited from Generation X (60年代后期和70年代出生的美国人). It's no small challenge for a blog run by a group of ordinary—if ambitious—young people, but the members of Generation O are up to the task.`,
+              "contentCN":`塔夫茨大学公民学习与参与信息研究中心（CIRCLE）的一项新研究表明，如今的年轻人投票人数比前几代人更多，美国进步中心2008年的一项研究补充说，越来越多的年轻选民和活动家支持传统的自由派事业。但要弄清楚这些数字在现实生活中的意义并非易事。在总统竞选期间，巴拉克·奥巴马以希望和变革的信息组建了一个种族和意识形态多元化的联盟；随着新政府执政后的现实逐渐明朗，一些支持者可能会感到失望。随着国家进一步进入奥巴马总统任期，积极参与政治的年轻人会继续支持总统及其议程，还是会逐渐疏远？
+    
+    《新闻周刊》的一个新博客“O一代”（奥巴马的简称）的作者们想回答这个问题。在接下来的三个月里，米歇尔·克雷默和其他11名年龄在19岁至34岁之间的奥巴马支持者将在博客上讲述美国主流社会的生活，有一个不同之处：通过将他们所有的想法和经历与新总统及其政府联系起来，博主们将试图展开一场关于如今在美国年轻且积极参与政治意味着什么的对话。来自圣路易斯的24岁作家兼舞者马莱娜·阿穆萨认为这个项目是一种记录当下历史的方式。阿穆萨今年春天将前往印度完成一本书，然后去塞内加尔教英语，她一直在和朋友们谈论奥巴马总统任期如何改变了他们的日常生活，并希望将其中一些想法以及她的全球视角融入到她的博文中。她很兴奋，因为正如她所说，“我不必等到15年后”才能理解这个世界。
+    
+    圣玛丽大学的政治学教授亨利·弗洛雷斯将这年轻一代的政治力量归功于他们对科技的接受。“（互联网）让他们接触到更多的思想，”他说，“而且在这个国家不同地区志同道合的群体开始聚集在一起。”这正是“O一代”博主们希望做到的。结果可能是一群年轻人，他们像他们婴儿潮一代的父母一样，带着强烈的目标感成长，并摆脱他们从X一代（60年代后期和70年代出生的美国人）那里继承来的冷漠形象。对于一个由一群普通但有抱负的年轻人运营的博客来说，这可不是一个小挑战，但“O一代”的成员们有能力完成这项任务。`
+            },
+            "questions": [
+              {
+                "id": "q1-1",
+                "type": "reading",
+                "text": "What is the finding of a new study by CIRCLE?",
+                "textCN": "CIRCLE的一项新研究的发现是什么？",
+                "options": [
+                  { "id": "q1-1-A", "text": "More young voters are going to the polls than before.", "textCN": "去投票的年轻选民比以前更多。" },
+                  { "id": "q1-1-B", "text": "The young generation supports traditionally liberal causes.", "textCN": "年轻一代支持传统的自由派事业。" },
+                  { "id": "q1-1-C", "text": "Young voters played a decisive role in Obama's election.", "textCN": "年轻选民在奥巴马的选举中起了决定性作用。" },
+                  { "id": "q1-1-D", "text": "Young people in America are now more diverse ideologically.", "textCN": "美国的年轻人现在在意识形态上更加多样化。" }
+                ],
+                "correctOptionId": "q1-1-A",
+                "explanation": "文章第一句提到“A new study from the Center for Information and Research on Civic Learning and Engagement (CIRCLE) at Tufts University shows that today's youth vote in larger numbers than previous generations”，说明CIRCLE的新研究发现是去投票的年轻选民比以前更多，所以选A。"
+              },
+              {
+                "id": "q1-2",
+                "type": "reading",
+                "text": "What is a main concern of the writers of Generation O?",
+                "textCN": "“O一代”的作者们主要关心的是什么？",
+                "options": [
+                  { "id": "q1-2-A", "text": "How Obama is going to live up to young people's expectations.", "textCN": "奥巴马将如何辜负年轻人的期望。" },
+                  { "id": "q1-2-B", "text": "Whether America is going to change during Obama's presidency.", "textCN": "在美国总统奥巴马任期内美国是否会改变。" },
+                  { "id": "q1-2-C", "text": "Whether young people will continue to support Obama's policy.", "textCN": "年轻人是否会继续支持奥巴马的政策。" },
+                  { "id": "q1-2-D", "text": "How Obama's agenda is going to affect the life of Americans.", "textCN": "奥巴马的议程将如何影响美国人的生活。" }
+                ],
+                "correctOptionId": "q1-2-C",
+                "explanation": "文章第二段第一句提到“The writers of Generation O (short for Obama), a new Newsweek blog that seeks to chronicle the lives of a group of young Obama supporters, want to answer that question. As the nation moves further into the Obama presidency, will politically engaged young people continue to support the president and his agenda, or will they gradually drift away?”，说明“O一代”的作者们主要关心的是年轻人是否会继续支持奥巴马的政策，所以选C。"
+              },
+              {
+                "id": "q1-3",
+                "type": "reading",
+                "text": "What will the Generation O bloggers write about in their posts?",
+                "textCN": "“O一代”博主们在他们的博文中会写些什么？",
+                "options": [
+                  { "id": "q1-3-A", "text": "Their own interpretation of American politics.", "textCN": "他们对美国政治的自己的解读。" },
+                  { "id": "q1-3-B", "text": "Policy changes to take place in Obama's administration.", "textCN": "奥巴马政府将发生的政策变化。" },
+                  { "id": "q1-3-C", "text": "Obama's presidency viewed from a global perspective.", "textCN": "从全球视角看待奥巴马的总统任期。" },
+                  { "id": "q1-3-D", "text": "Their lives in relation to Obama's presidency.", "textCN": "他们与奥巴马总统任期相关的生活。" }
+                ],
+                "correctOptionId": "q1-3-D",
+                "explanation": "文章第二段提到“For the next three months, Michelle Kremer and 11 other Obama supporters, ages 19 to 34, will blog about life across mainstream America, with one twist: by tying all of their ideas and experiences to the new president and his administration, the bloggers will try to start a conversation about what it means to be young and politically active in America today.”，说明“O一代”博主们会写他们与奥巴马总统任期相关的生活，所以选D。"
+              },
+              {
+                "id": "q1-4",
+                "type": "reading",
+                "text": "What accounts for the younger generation's political strength according to Professor Henry Flores?",
+                "textCN": "根据亨利·弗洛雷斯教授的说法，年轻一代的政治力量归因于什么？",
+                "options": [
+                  { "id": "q1-4-A", "text": "Their embrace of radical ideas.", "textCN": "他们对激进思想的接受。" },
+                  { "id": "q1-4-B", "text": "Their desire to change America.", "textCN": "他们改变美国的愿望。" },
+                  { "id": "q1-4-C", "text": "Their utilization of the Internet.", "textCN": "他们对互联网的利用。" },
+                  { "id": "q1-4-D", "text": "Their strong sense of responsibility.", "textCN": "他们强烈的责任感。" }
+                ],
+                "correctOptionId": "q1-4-C",
+                "explanation": "文章第三段第一句提到“Henry Flores, a political-science professor at St. Mary's University, credits this younger generation's political strength to their embrace of technology.”，说明亨利·弗洛雷斯教授认为年轻一代的政治力量归因于他们对科技的接受，也就是对互联网的利用，所以选C。"
+              },
+              {
+                "id": "q1-5",
+                "type": "reading",
+                "text": "What can we infer from the passage about Generation X?",
+                "textCN": "从文章中我们可以推断出关于X一代的什么？",
+                "options": [
+                  { "id": "q1-5-A", "text": "They are politically conservative.", "textCN": "他们在政治上保守。" },
+                  { "id": "q1-5-B", "text": "They reject conventional values.", "textCN": "他们拒绝传统价值观。" },
+                  { "id": "q1-5-C", "text": "They dare to take up challenges.", "textCN": "他们敢于接受挑战。" },
+                  { "id": "q1-5-D", "text": "They are indifferent to politics.", "textCN": "他们对政治冷漠。" }
+                ],
+                "correctOptionId": "q1-5-D",
+                "explanation": "文章第三段最后一句提到“The result could be a group of young people that, like their boomer (二战后生育高峰期出生的美国人) parents, grows up with a strong sense of purpose and sheds the image of apathy (冷漠) they've inherited from Generation X (60年代后期和70年代出生的美国人).”，说明X一代是冷漠的，也就是对政治冷漠，所以选D。"
+              }
+            ]
+          },{
+      "id": "chapter1-reading1",
+      "title": "阅读理解 1",
+      "description": "关于远程学习的阅读理解",
+      "type": "reading",
+      "article": {
+        "id": "article1",
+        "title": "Distance Learning",
+        "titleCN": "远程学习",
+        "content": `A busy schedule coupled with lack of time does not always make it possible to continue your education along with your job and family responsibilities. However, distance learning has made it possible to work and pursue your academic interests at the same time.
+    　　There are a few important things to consider when choosing a distance learning college. Accreditation (认证) should be the leading standard. Degrees from colleges without any official accreditation are not recognized by employers and will only mean a waste of money and time. Also make sure that the college does not have any fake accreditation. The services offered by the distance learning institutes should also be considered, including placement services. The credentials (文凭) of the distance learning program and its past record will help you in choosing an institute.
+    　　Colleges offer various types of distance learning degrees. There are both short-term courses that may last only a few weeks and long-term graduate and postgraduate courses that require 2 to 3 years of study. Distance learning MBA is one of the most sought-after degree by management executives. Distance learning programs are run both by traditional colleges and schools along with their normal courses and also by independent institutes specializing in distance learning facilities. It is best to choose a program run by the traditional colleges, as these are given the same recognition as to their normal courses. It is also important that you personally visit the institute and interact with the staff to gain detailed information on their teaching methods and principles, the type of study material provided and personal guidance, if any, provided by the distance learning college.
+    　　To make your distance learning program a success, it is important that you interact with other students who have enrolled in the program. Interaction will help in deciding how to make your method of study efficient. Try to have a weekend session with other students from your area or region. Furthermore, regular communications with the training staff will also help clear any questions that you may have.`,
+        "contentCN": `忙碌的日程安排加上时间的缺乏，并不总是能让你在承担工作和家庭责任的同时继续接受教育。然而，远程学习使人们有可能在工作的同时追求自己的学术兴趣。
+    　　选择远程学习学院时，有几个重要的事情需要考虑。认证应该是首要标准。没有任何官方认证的学院颁发的学位不被雇主认可，只会意味着浪费金钱和时间。还要确保学院没有任何虚假认证。远程学习机构提供的服务也应该被考虑，包括就业服务。远程学习项目的文凭及其过去的记录将有助于你选择一所机构。
+    　　学院提供各种类型的远程学习学位。既有可能只持续几周的短期课程，也有需要2到3年学习时间的长期研究生和博士后课程。远程学习MBA是管理高管们最追捧的学位之一。远程学习项目由传统学院和学校在其正常课程之外运行，也由专门从事远程学习设施的独立机构运行。最好选择由传统学院运行的项目，因为这些项目与它们的正常课程享有相同的认可度。亲自参观该机构并与工作人员互动，以详细了解他们的教学方法和原则、提供的学习材料类型以及远程学习学院提供的个人指导（如果有的话）也很重要。
+    　　为了使你的远程学习项目取得成功，与已报名参加该项目的其他学生互动很重要。互动将有助于决定如何使你的学习方法更有效率。尽量与来自你所在地区的其他学生进行一次周末聚会。此外，与培训人员定期沟通也将有助于清除你可能有的任何问题。`
+      },
+      "questions": [
+        {
+          "id": "q1-1",
+          "type": "reading",
+          "text": "What should be the most important standard of choosing a distance learning college?",
+          "textCN": "选择远程学习学院最重要的标准应该是什么？",
+          "options": [
+            { "id": "q1-1-A", "text": "Tuition", "textCN": "学费" },
+            { "id": "q1-1-B", "text": "Courses", "textCN": "课程" },
+            { "id": "q1-1-C", "text": "Degrees", "textCN": "学位" },
+            { "id": "q1-1-D", "text": "Accreditation", "textCN": "认证" }
+          ],
+          "correctOptionId": "q1-1-D",
+          "explanation": "The second paragraph states that 'Accreditation (认证) should be the leading standard.'"
+        },
+        {
+          "id": "q1-2",
+          "type": "reading",
+          "text": "What are helpful to you while choosing a distance learning institute?",
+          "textCN": "在选择远程学习机构时，什么对你有帮助？",
+          "options": [
+            { "id": "q1-2-A", "text": "Your academic interests and your present job", "textCN": "你的学术兴趣和你目前的工作" },
+            { "id": "q1-2-B", "text": "Your spare money and time for distance learning", "textCN": "你用于远程学习的闲钱和时间" },
+            { "id": "q1-2-C", "text": "The official accreditation and its normal courses", "textCN": "官方认证及其正常课程" },
+            { "id": "q1-2-D", "text": "The credentials of the program and its past record", "textCN": "该项目的文凭及其过去的记录" }
+          ],
+          "correctOptionId": "q1-2-D",
+          "explanation": "The second paragraph mentions that 'The credentials (文凭) of the distance learning program and its past record will help you in choosing an institute.'"
+        },
+        {
+          "id": "q1-3",
+          "type": "reading",
+          "text": "Courses offered by different distance learning colleges can be classified into ________.",
+          "textCN": "不同远程学习学院提供的课程可以分为________。",
+          "options": [
+            { "id": "q1-3-A", "text": "short-term and long-term courses", "textCN": "短期和长期课程" },
+            { "id": "q1-3-B", "text": "graduate and postgraduate courses", "textCN": "研究生和博士后课程" },
+            { "id": "q1-3-C", "text": "MBA and EMBA courses", "textCN": "MBA和EMBA课程" },
+            { "id": "q1-3-D", "text": "general and specialized courses", "textCN": "普通和专业课程" }
+          ],
+          "correctOptionId": "q1-3-A",
+          "explanation": "The third paragraph states that 'There are both short-term courses that may last only a few weeks and long-term graduate and postgraduate courses that require 2 to 3 years of study.'"
+        },
+        {
+          "id": "q1-4",
+          "type": "reading",
+          "text": "It is suggested that people should choose distance learning programs run by ________.",
+          "textCN": "建议人们应该选择由________运营的远程学习项目。",
+          "options": [
+            { "id": "q1-4-A", "text": "traditional colleges", "textCN": "传统学院" },
+            { "id": "q1-4-B", "text": "independent institutes", "textCN": "独立机构" },
+            { "id": "q1-4-C", "text": "colleges that offer postgraduate courses", "textCN": "提供研究生课程的学院" },
+            { "id": "q1-4-D", "text": "colleges and schools with a good reputation", "textCN": "声誉良好的学院和学校" }
+          ],
+          "correctOptionId": "q1-4-A",
+          "explanation": "The third paragraph says that 'It is best to choose a program run by the traditional colleges, as these are given the same recognition as to their normal courses.'"
+        },
+        {
+          "id": "q1-5",
+          "type": "reading",
+          "text": "How can you make your distance learning program a success?",
+          "textCN": "你如何使你的远程学习项目取得成功？",
+          "options": [
+            { "id": "q1-5-A", "text": "By using efficient methods of study", "textCN": "通过使用高效的学习方法" },
+            { "id": "q1-5-B", "text": "By attaching great importance to study", "textCN": "通过高度重视学习" },
+            { "id": "q1-5-C", "text": "By interacting with other students in the same program", "textCN": "通过与同一项目中的其他学生互动" },
+            { "id": "q1-5-D", "text": "By communicating with the training staff every day", "textCN": "通过每天与培训人员沟通" }
+          ],
+          "correctOptionId": "q1-5-C",
+          "explanation": "The fourth paragraph states that 'To make your distance learning program a success, it is important that you interact with other students who have enrolled in the program.'"
+        }
+      ]
+    },
+      {
+        "id": "chapter15-cloze10",
+        "title": "完形填空 24",
+        "description": "关于美国大学无线技术与课堂注意力的完形填空",
+        "type": "cloze",
+        "questions": [
+          {
+            "id": "c24-1",
+            "type": "cloze",
+            "text": "But professors say the technology poses a growing (75)_____: Retaining their students' attention.",
+            "textCN": "但教授们表示，这项技术带来了日益严峻的(75)_____：保持学生的注意力。",
+            "options": [
+              { "id": "c24-1-A", "text": "challenge", "textCN": "挑战" },
+              { "id": "c24-1-B", "text": "opportunity", "textCN": "机会" },
+              { "id": "c24-1-C", "text": "solution", "textCN": "解决方案" },
+              { "id": "c24-1-D", "text": "advantage", "textCN": "优势" }
+            ],
+            "correctOptionId": "c24-1-A",
+            "explanation": "“challenge”意为“挑战”，与“保持学生注意力”的难题呼应，体现无线技术对传统教学模式的冲击，符合教授们的担忧语境。"
+          },
+          {
+            "id": "c24-2",
+            "type": "cloze",
+            "text": "the benefits and (76)_____ of the new wireless work were on display.",
+            "textCN": "新无线技术的好处和(76)_____都展现出来。",
+            "options": [
+              { "id": "c24-2-A", "text": "drawbacks", "textCN": "缺点" },
+              { "id": "c24-2-B", "text": "successes", "textCN": "成功" },
+              { "id": "c24-2-C", "text": "improvements", "textCN": "改进" },
+              { "id": "c24-2-D", "text": "features", "textCN": "特点" }
+            ],
+            "correctOptionId": "c24-2-A",
+            "explanation": "“drawbacks”意为“缺点”，与“benefits”形成对比，指无线技术在课堂中的利弊并存，通过学生上网分心的案例具体呈现弊端。"
+          },
+          {
+            "id": "c24-3",
+            "type": "cloze",
+            "text": "more than a dozen laptop screens were (77)_____.",
+            "textCN": "十多台笔记本电脑的屏幕(77)_____。",
+            "options": [
+              { "id": "c24-3-A", "text": "visible", "textCN": "可见的" },
+              { "id": "c24-3-B", "text": "hidden", "textCN": "隐藏的" },
+              { "id": "c24-3-C", "text": "broken", "textCN": "损坏的" },
+              { "id": "c24-3-D", "text": "off", "textCN": "关闭的" }
+            ],
+            "correctOptionId": "c24-3-A",
+            "explanation": "“visible”意为“可见的”，指学生在课堂上使用笔记本电脑的行为公开化，为后文“上网分心”的具体表现做铺垫，体现课堂管理的难度。"
+          },
+          {
+            "id": "c24-4",
+            "type": "cloze",
+            "text": "Distraction is nothing (78)_____.",
+            "textCN": "分心并非(78)_____。",
+            "options": [
+              { "id": "c24-4-A", "text": "new", "textCN": "新鲜的" },
+              { "id": "c24-4-B", "text": "common", "textCN": "常见的" },
+              { "id": "c24-4-C", "text": "serious", "textCN": "严重的" },
+              { "id": "c24-4-D", "text": "unusual", "textCN": "不寻常的" }
+            ],
+            "correctOptionId": "c24-4-A",
+            "explanation": "“new”意为“新鲜的”，与“学生一直以来的窃窃私语、传纸条”形成对比，说明分心现象长期存在，但无线技术使其形式和程度发生变化。"
+          },
+          {
+            "id": "c24-5",
+            "type": "cloze",
+            "text": "But the (79)_____ of the laptop has introduced new opportunities for distraction.",
+            "textCN": "但笔记本电脑的(79)_____带来了新的分心机会。",
+            "options": [
+              { "id": "c24-5-A", "text": "arrival", "textCN": "到来" },
+              { "id": "c24-5-B", "text": "price", "textCN": "价格" },
+              { "id": "c24-5-C", "text": "design", "textCN": "设计" },
+              { "id": "c24-5-D", "text": "repair", "textCN": "维修" }
+            ],
+            "correctOptionId": "c24-5-A",
+            "explanation": "“arrival”意为“到来”，指笔记本电脑在课堂的普及为分心提供了新载体，与“无线技术扩大分心范围”形成递进关系，强调技术对教学的影响。"
+          },
+          {
+            "id": "c24-6",
+            "type": "cloze",
+            "text": "wireless introduces an even (80)_____ range of distraction.",
+            "textCN": "无线技术引入了更(80)_____的分心范围。",
+            "options": [
+              { "id": "c24-6-A", "text": "broader", "textCN": "广泛的" },
+              { "id": "c24-6-B", "text": "narrower", "textCN": "狭窄的" },
+              { "id": "c24-6-C", "text": "shorter", "textCN": "更短的" },
+              { "id": "c24-6-D", "text": "smaller", "textCN": "更小的" }
+            ],
+            "correctOptionId": "c24-6-A",
+            "explanation": "“broader”意为“广泛的”，指无线技术使学生分心的方式从单一行为扩展到上网、邮件、即时消息等多元活动，体现分心范围的扩大。"
+          },
+          {
+            "id": "c24-7",
+            "type": "cloze",
+            "text": "This is (81)_____ annoying for law professors.",
+            "textCN": "这(81)_____让法学教授们感到烦恼。",
+            "options": [
+              { "id": "c24-7-A", "text": "especially", "textCN": "尤其" },
+              { "id": "c24-7-B", "text": "hardly", "textCN": "几乎不" },
+              { "id": "c24-7-C", "text": "never", "textCN": "从未" },
+              { "id": "c24-7-D", "text": "rarely", "textCN": "很少" }
+            ],
+            "correctOptionId": "c24-7-A",
+            "explanation": "“especially”意为“尤其”，强调法学教授对无线技术的反感更为突出，与“仍依赖纸质资料”的教学习惯相关，体现学科差异带来的认知分歧。"
+          },
+          {
+            "id": "c24-8",
+            "type": "cloze",
+            "text": "who (82)_____ the Internet's entry into the classroom.",
+            "textCN": "他(82)_____互联网进入课堂。",
+            "options": [
+              { "id": "c24-8-A", "text": "opposes", "textCN": "反对" },
+              { "id": "c24-8-B", "text": "supports", "textCN": "支持" },
+              { "id": "c24-8-C", "text": "ignores", "textCN": "忽视" },
+              { "id": "c24-8-D", "text": "welcomes", "textCN": "欢迎" }
+            ],
+            "correctOptionId": "c24-8-A",
+            "explanation": "“opposes”意为“反对”，与“伤害学生自身”的观点一致，体现保守派学者对技术入侵课堂的抵触，与后文Mallek教授的态度形成对比。"
+          },
+          {
+            "id": "c24-9",
+            "type": "cloze",
+            "text": "However, Professor Mallek sees it (83)_____.",
+            "textCN": "然而，马莱克教授(83)_____看待它。",
+            "options": [
+              { "id": "c24-9-A", "text": "differently", "textCN": "不同地" },
+              { "id": "c24-9-B", "text": "similarly", "textCN": "相似地" },
+              { "id": "c24-9-C", "text": "positively", "textCN": "积极地" },
+              { "id": "c24-9-D", "text": "negatively", "textCN": "消极地" }
+            ],
+            "correctOptionId": "c24-9-A",
+            "explanation": "“differently”意为“不同地”，作为转折词，引出支持派学者的观点，强调技术利弊的相对性，为后文“促使自己成为更好教师”的论述做铺垫。"
+          },
+          {
+            "id": "c24-10",
+            "type": "cloze",
+            "text": "He takes the (84)_____ of losing his students to email and online newspapers as a challenge.",
+            "textCN": "他将学生因邮件和在线报纸而流失的(84)_____视为一种挑战。",
+            "options": [
+              { "id": "c24-10-A", "text": "threat", "textCN": "威胁" },
+              { "id": "c24-10-B", "text": "promise", "textCN": "承诺" },
+              { "id": "c24-10-C", "text": "success", "textCN": "成功" },
+              { "id": "c24-10-D", "text": "failure", "textCN": "失败" }
+            ],
+            "correctOptionId": "c24-10-A",
+            "explanation": "“threat”意为“威胁”，指分心问题对教学效果的潜在危害，但Mallek教授将其转化为改进教学的动力，体现积极应对技术挑战的态度。"
+          }
+        ]
+      },      {
+        "id": "chapter15-cloze11",
+        "title": "完形填空 25",
+        "description": "关于肥胖与代谢综合征的新理论完形填空",
+        "type": "cloze",
+        "questions": [
+          {
+            "id": "c25-1",
+            "type": "cloze",
+            "text": "The health problems (85)_____ with fatness may not be caused by it.",
+            "textCN": "与肥胖(85)_____的健康问题可能并非由其引起。",
+            "options": [
+              { "id": "c25-1-A", "text": "associated", "textCN": "关联" },
+              { "id": "c25-1-B", "text": "separated", "textCN": "分离" },
+              { "id": "c25-1-C", "text": "treated", "textCN": "治疗" },
+              { "id": "c25-1-D", "text": "cured", "textCN": "治愈" }
+            ],
+            "correctOptionId": "c25-1-A",
+            "explanation": "“associated”意为“关联”，“associated with”表示“与…相关”，指传统观点认为肥胖与健康问题存在关联，为后文推翻该观点做铺垫。"
+          },
+          {
+            "id": "c25-2",
+            "type": "cloze",
+            "text": "That is the heretical (86)_____ of Roger Unger and Philipp Scherer.",
+            "textCN": "这是罗杰·昂格尔和菲利普·舍雷尔的异端(86)_____。",
+            "options": [
+              { "id": "c25-2-A", "text": "proposal", "textCN": "提议" },
+              { "id": "c25-2-B", "text": "fact", "textCN": "事实" },
+              { "id": "c25-2-C", "text": "method", "textCN": "方法" },
+              { "id": "c25-2-D", "text": "result", "textCN": "结果" }
+            ],
+            "correctOptionId": "c25-2-A",
+            "explanation": "“proposal”意为“提议”，指两位学者提出的颠覆性理论，与“heretical”（异端的）呼应，体现该观点对传统认知的挑战。"
+          },
+          {
+            "id": "c25-3",
+            "type": "cloze",
+            "text": "They have been (87)_____ the science of metabolic syndrome.",
+            "textCN": "他们一直在(87)_____代谢综合征的科学研究。",
+            "options": [
+              { "id": "c25-3-A", "text": "reviewing", "textCN": "回顾" },
+              { "id": "c25-3-B", "text": "ignoring", "textCN": "忽视" },
+              { "id": "c25-3-C", "text": "creating", "textCN": "创造" },
+              { "id": "c25-3-D", "text": "forgetting", "textCN": "忘记" }
+            ],
+            "correctOptionId": "c25-3-A",
+            "explanation": "“reviewing”意为“回顾”，指学者通过梳理代谢综合征的研究文献提出新理论，体现研究的严谨性和逻辑性。"
+          },
+          {
+            "id": "c25-4",
+            "type": "cloze",
+            "text": "seem to increase the (88)_____ of heart disease and strokes.",
+            "textCN": "似乎会增加心脏病和中风的(88)_____。",
+            "options": [
+              { "id": "c25-4-A", "text": "risk", "textCN": "风险" },
+              { "id": "c25-4-B", "text": "cure", "textCN": "治愈" },
+              { "id": "c25-4-C", "text": "treatment", "textCN": "治疗" },
+              { "id": "c25-4-D", "text": "research", "textCN": "研究" }
+            ],
+            "correctOptionId": "c25-4-A",
+            "explanation": "“risk”意为“风险”，指代谢综合征的症状会提升重大疾病的发病概率，符合医学常识和文本语境。"
+          },
+          {
+            "id": "c25-5",
+            "type": "cloze",
+            "text": "Metabolic syndrome is (89)_____ in one-sixth of the American population.",
+            "textCN": "代谢综合征在六分之一的美国人口中(89)_____。",
+            "options": [
+              { "id": "c25-5-A", "text": "found", "textCN": "发现" },
+              { "id": "c25-5-B", "text": "cured", "textCN": "治愈" },
+              { "id": "c25-5-C", "text": "ignored", "textCN": "忽视" },
+              { "id": "c25-5-D", "text": "created", "textCN": "创造" }
+            ],
+            "correctOptionId": "c25-5-A",
+            "explanation": "“found”意为“发现”，指代谢综合征在美国的发病率数据，用具体数字说明问题的普遍性，增强论述可信度。"
+          },
+          {
+            "id": "c25-6",
+            "type": "cloze",
+            "text": "“Syndrome” is the medical term for a (90)_____ of symptoms.",
+            "textCN": "“综合征”是指一组症状的医学术语，即症状的(90)_____。",
+            "options": [
+              { "id": "c25-6-A", "text": "collection", "textCN": "集合" },
+              { "id": "c25-6-B", "text": "cause", "textCN": "原因" },
+              { "id": "c25-6-C", "text": "cure", "textCN": "治愈" },
+              { "id": "c25-6-D", "text": "name", "textCN": "名称" }
+            ],
+            "correctOptionId": "c25-6-A",
+            "explanation": "“collection”意为“集合”，准确解释“综合征”的医学定义，指多种症状的组合，与“common cause is not understood”（共同病因未知）形成逻辑关联。"
+          },
+          {
+            "id": "c25-7",
+            "type": "cloze",
+            "text": "this is generally regarded as the (91)_____ cause.",
+            "textCN": "这通常被视为(91)_____原因。",
+            "options": [
+              { "id": "c25-7-A", "text": "potential", "textCN": "潜在的" },
+              { "id": "c25-7-B", "text": "definite", "textCN": "明确的" },
+              { "id": "c25-7-C", "text": "impossible", "textCN": "不可能的" },
+              { "id": "c25-7-D", "text": "harmless", "textCN": "无害的" }
+            ],
+            "correctOptionId": "c25-7-A",
+            "explanation": "“potential”意为“潜在的”，指传统观点基于症状出现顺序，将肥胖视为代谢综合征的潜在病因，为后文推翻该假设做铺垫。"
+          },
+          {
+            "id": "c25-8",
+            "type": "cloze",
+            "text": "between a person becoming overweight and his (92)_____ other symptoms.",
+            "textCN": "在一个人超重和他(92)_____其他症状之间通常有多年的间隔。",
+            "options": [
+              { "id": "c25-8-A", "text": "developing", "textCN": "出现" },
+              { "id": "c25-8-B", "text": "curing", "textCN": "治愈" },
+              { "id": "c25-8-C", "text": "ignoring", "textCN": "忽视" },
+              { "id": "c25-8-D", "text": "hiding", "textCN": "隐藏" }
+            ],
+            "correctOptionId": "c25-8-A",
+            "explanation": "“developing”意为“出现”，指超重人群在数年后才表现出其他代谢综合征症状，说明肥胖与症状间可能并非直接因果关系。"
+          },
+          {
+            "id": "c25-9",
+            "type": "cloze",
+            "text": "in addition to its role in storing energy as a way to (93)_____ against future famine.",
+            "textCN": "除了作为储存能量以(93)_____未来饥荒的角色之外。",
+            "options": [
+              { "id": "c25-9-A", "text": "fight", "textCN": "对抗" },
+              { "id": "c25-9-B", "text": "cause", "textCN": "引起" },
+              { "id": "c25-9-C", "text": "forget", "textCN": "忘记" },
+              { "id": "c25-9-D", "text": "create", "textCN": "创造" }
+            ],
+            "correctOptionId": "c25-9-A",
+            "explanation": "“fight”意为“对抗”，“fight against”表示“对抗”，指脂肪储存能量以应对饥荒的进化功能，符合生物学常识。"
+          },
+          {
+            "id": "c25-10",
+            "type": "cloze",
+            "text": "getting fat is a (94)_____ mechanism against metabolic syndrome.",
+            "textCN": "肥胖是一种对抗代谢综合征的(94)_____机制。",
+            "options": [
+              { "id": "c25-10-A", "text": "protective", "textCN": "保护的" },
+              { "id": "c25-10-B", "text": "harmful", "textCN": "有害的" },
+              { "id": "c25-10-C", "text": "useless", "textCN": "无用的" },
+              { "id": "c25-10-D", "text": "dangerous", "textCN": "危险的" }
+            ],
+            "correctOptionId": "c25-10-A",
+            "explanation": "“protective”意为“保护的”，指两位学者提出的新理论——肥胖是身体对抗代谢综合征的保护机制，颠覆传统认知，呼应首段“保护身体”的论述。"
+          }
+        ]
+      },      {
+        "id": "chapter15-cloze12",
+        "title": "完形填空 26",
+        "description": "关于高等教育利用互联网的完形填空",
+        "type": "cloze",
+        "questions": [
+          {
+            "id": "c26-1",
+            "type": "cloze",
+            "text": "To deal with this (95)_____ issue, colleges...",
+            "textCN": "为处理这个(95)_____问题，高校...",
+            "options": [
+              { "id": "c26-1-A", "text": "complex", "textCN": "复杂的" },
+              { "id": "c26-1-B", "text": "simple", "textCN": "简单的" },
+              { "id": "c26-1-C", "text": "unimportant", "textCN": "不重要的" },
+              { "id": "c26-1-D", "text": "old", "textCN": "陈旧的" }
+            ],
+            "correctOptionId": "c26-1-A",
+            "explanation": "“complex”意为“复杂的”，与“高等教育需提供更好课程和更多机会”的多重需求呼应，体现问题的多面性，符合高校寻求互联网解决方案的逻辑。"
+          },
+          {
+            "id": "c26-2",
+            "type": "cloze",
+            "text": "turning to the Internet for quick (96)_____ to its resources.",
+            "textCN": "转向互联网以快速(96)_____其丰富资源。",
+            "options": [
+              { "id": "c26-2-A", "text": "access", "textCN": "获取" },
+              { "id": "c26-2-B", "text": "answer", "textCN": "答案" },
+              { "id": "c26-2-C", "text": "key", "textCN": "关键" },
+              { "id": "c26-2-D", "text": "solution", "textCN": "解决方案" }
+            ],
+            "correctOptionId": "c26-2-A",
+            "explanation": "“access”意为“获取”，“access to”为固定搭配，指高校通过互联网快速获取教育资源，体现互联网在资源整合中的优势。"
+          },
+          {
+            "id": "c26-3",
+            "type": "cloze",
+            "text": "the Internet has been accepted as the (97)_____ technology...",
+            "textCN": "互联网已被公认为(97)_____于许多其他方法的技术...",
+            "options": [
+              { "id": "c26-3-A", "text": "preferred", "textCN": "更受青睐的" },
+              { "id": "c26-3-B", "text": "inferior", "textCN": "较差的" },
+              { "id": "c26-3-C", "text": "strange", "textCN": "陌生的" },
+              { "id": "c26-3-D", "text": "traditional", "textCN": "传统的" }
+            ],
+            "correctOptionId": "c26-3-A",
+            "explanation": "“preferred”意为“更受青睐的”，指互联网在高校中比其他方法更被优先选择，与“许多教师常规性上传资料”的后文形成因果关系。"
+          },
+          {
+            "id": "c26-4",
+            "type": "cloze",
+            "text": "Many teachers now routinely (98)_____ their teaching materials online.",
+            "textCN": "如今许多教师常规性地在网上(98)_____教学资料。",
+            "options": [
+              { "id": "c26-4-A", "text": "post", "textCN": "发布" },
+              { "id": "c26-4-B", "text": "read", "textCN": "阅读" },
+              { "id": "c26-4-C", "text": "find", "textCN": "查找" },
+              { "id": "c26-4-D", "text": "sell", "textCN": "售卖" }
+            ],
+            "correctOptionId": "c26-4-A",
+            "explanation": "“post”意为“发布”，指教师将资料上传至网络平台，符合“互联网作为首选技术”的语境，体现教学方式的数字化转变。"
+          },
+          {
+            "id": "c26-5",
+            "type": "cloze",
+            "text": "A growing number of schools offer at least some (99)_____ courses...",
+            "textCN": "越来越多的学校至少提供一些(99)_____课程...",
+            "options": [
+              { "id": "c26-5-A", "text": "undergraduate", "textCN": "本科的" },
+              { "id": "c26-5-B", "text": "graduate", "textCN": "研究生的" },
+              { "id": "c26-5-C", "text": "professional", "textCN": "专业的" },
+              { "id": "c26-5-D", "text": "online", "textCN": "在线的" }
+            ],
+            "correctOptionId": "c26-5-D",
+            "explanation": "“online”意为“在线的”，与“over the Internet”直接对应，指学校通过网络开设课程，是互联网应用于高等教育的具体表现。"
+          },
+          {
+            "id": "c26-6",
+            "type": "cloze",
+            "text": "The first model (100)_____ to improve existing courses...",
+            "textCN": "第一种模式(100)_____通过互联网改进现有课程...",
+            "options": [
+              { "id": "c26-6-A", "text": "seeks", "textCN": "寻求" },
+              { "id": "c26-6-B", "text": "refuses", "textCN": "拒绝" },
+              { "id": "c26-6-C", "text": "forgets", "textCN": "忘记" },
+              { "id": "c26-6-D", "text": "fails", "textCN": "失败" }
+            ],
+            "correctOptionId": "c26-6-A",
+            "explanation": "“seeks”意为“寻求”，指第一种模式以改进课程为目标，与“提供高速网络连接”的具体措施形成目的关系，逻辑连贯。"
+          },
+          {
+            "id": "c26-7",
+            "type": "cloze",
+            "text": "This model provides high-speed Internet (101)_____ to all students...",
+            "textCN": "该模式为所有学生提供高速互联网(101)_____...",
+            "options": [
+              { "id": "c26-7-A", "text": "connectivity", "textCN": "连接" },
+              { "id": "c26-7-B", "text": "speed", "textCN": "速度" },
+              { "id": "c26-7-C", "text": "bills", "textCN": "账单" },
+              { "id": "c26-7-D", "text": "users", "textCN": "用户" }
+            ],
+            "correctOptionId": "c26-7-A",
+            "explanation": "“connectivity”意为“连接”，指网络接入服务，与“高速互联网”搭配，是第一种模式的基础措施，支持课程改进需求。"
+          },
+          {
+            "id": "c26-8",
+            "type": "cloze",
+            "text": "While this model uses the Internet, it doesn't (102)_____ many changes...",
+            "textCN": "尽管该模式使用互联网，但不(102)_____太多改变...",
+            "options": [
+              { "id": "c26-8-A", "text": "require", "textCN": "要求" },
+              { "id": "c26-8-B", "text": "avoid", "textCN": "避免" },
+              { "id": "c26-8-C", "text": "make", "textCN": "做出" },
+              { "id": "c26-8-D", "text": "see", "textCN": "看见" }
+            ],
+            "correctOptionId": "c26-8-A",
+            "explanation": "“require”意为“要求”，指第一种模式仅将互联网作为辅助工具，不改变现有教学结构，与“保持制度结构不变”形成语义呼应。"
+          },
+          {
+            "id": "c26-9",
+            "type": "cloze",
+            "text": "A different model regards the Internet as (103)_____ to change...",
+            "textCN": "另一种模式将互联网视为变革(103)_____...",
+            "options": [
+              { "id": "c26-9-A", "text": "indispensable", "textCN": "不可或缺的" },
+              { "id": "c26-9-B", "text": "harmful", "textCN": "有害的" },
+              { "id": "c26-9-C", "text": "easy", "textCN": "容易的" },
+              { "id": "c26-9-D", "text": "optional", "textCN": "可选的" }
+            ],
+            "correctOptionId": "c26-9-A",
+            "explanation": "“indispensable”意为“不可或缺的”，指第二种模式认为互联网是高等教育变革的必要条件，与“更具革命性”的定位相符，体现其颠覆性。"
+          },
+          {
+            "id": "c26-10",
+            "type": "cloze",
+            "text": "the Internet can (104)_____ teacher-centered into student-centered...",
+            "textCN": "互联网能(104)_____以教师为中心转变为以学生为中心...",
+            "options": [
+              { "id": "c26-10-A", "text": "transform", "textCN": "转变" },
+              { "id": "c26-10-B", "text": "keep", "textCN": "保持" },
+              { "id": "c26-10-C", "text": "divide", "textCN": "分割" },
+              { "id": "c26-10-D", "text": "compare", "textCN": "比较" }
+            ],
+            "correctOptionId": "c26-10-A",
+            "explanation": "“transform”意为“转变”，“transform...into...”为固定搭配，指互联网推动教学模式的根本变革，呼应“带来大学教育的基本变化”的论述。"
+          }
+        ]
+      }
+    ],
   },
 ];
 
