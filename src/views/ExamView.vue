@@ -12,6 +12,55 @@
         返回
       </button>
       
+      <!-- 跳题模式按钮 -->
+      <div class="relative">
+        <button 
+          @click="toggleSkipMenu" 
+          data-skip-menu-button
+          class="flex items-center px-3 py-1.5 text-sm rounded-lg transition-colors"
+          :class="getSkipModeButtonClass()"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+          </svg>
+          {{ getSkipModeButtonText() }}
+        </button>
+        
+        <!-- 跳题模式菜单 -->
+        <div v-if="showSkipMenu" data-skip-menu-dropdown class="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-48">
+          <button 
+            @click="setSkipMode('off')"
+            class="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center"
+            :class="skipMode === 'off' ? 'bg-blue-50 text-blue-700' : ''"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" :class="skipMode === 'off' ? 'text-blue-600' : 'text-gray-400'" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+            关闭跳题模式
+          </button>
+          <button 
+            @click="setSkipMode('reading')"
+            class="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center"
+            :class="skipMode === 'reading' ? 'bg-green-50 text-green-700' : ''"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" :class="skipMode === 'reading' ? 'text-green-600' : 'text-gray-400'" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            自动跳转阅读理解
+          </button>
+          <button 
+            @click="setSkipMode('cloze')"
+            class="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center"
+            :class="skipMode === 'cloze' ? 'bg-blue-50 text-blue-700' : ''"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" :class="skipMode === 'cloze' ? 'text-blue-600' : 'text-gray-400'" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+            自动跳转完形填空
+          </button>
+        </div>
+      </div>
+      
       <!-- 当前题目正确率 -->
       <div v-if="currentQuestion" class="question-stats px-3 py-1 rounded-full bg-gray-100 text-sm">
         <span class="text-gray-600">正确率: </span>
@@ -187,6 +236,10 @@ const selectedOptionId = ref<string>('')
 const isCorrect = ref<boolean>(false)
 // 文章是否展开
 const isArticleExpanded = ref<boolean>(false)
+// 是否显示跳题菜单
+const showSkipMenu = ref<boolean>(false)
+// 跳题模式状态：'off' | 'reading' | 'cloze'
+const skipMode = ref<string>('off')
 
 // 计算属性
 const currentChapter = computed(() => questionStore.currentChapter)
@@ -232,14 +285,29 @@ function handleContextMenu(event: MouseEvent) {
   }
 }
 
-// 组件挂载时添加鼠标右键事件监听
+// 点击外部区域关闭跳题菜单
+function handleClickOutside(event: MouseEvent) {
+  const target = event.target as HTMLElement
+  const skipMenuButton = document.querySelector('[data-skip-menu-button]')
+  const skipMenuDropdown = document.querySelector('[data-skip-menu-dropdown]')
+  
+  if (skipMenuButton && skipMenuDropdown && 
+      !skipMenuButton.contains(target) && 
+      !skipMenuDropdown.contains(target)) {
+    showSkipMenu.value = false
+  }
+}
+
+// 组件挂载时添加事件监听
 onMounted(() => {
   window.addEventListener('contextmenu', handleContextMenu)
+  window.addEventListener('click', handleClickOutside)
 })
 
-// 组件卸载时移除鼠标右键事件监听
+// 组件卸载时移除事件监听
 onUnmounted(() => {
   window.removeEventListener('contextmenu', handleContextMenu)
+  window.removeEventListener('click', handleClickOutside)
 })
 
 // 选择选项
@@ -336,11 +404,23 @@ function finishQuestionSet() {
   console.log('当前题集是否全部做对:', allCorrect)
   
   if (allCorrect) {
-    // 获取下一个题集信息（用于调试）
-    const nextSet = questionStore.getNextQuestionSet()
-    console.log('下一个题集信息:', nextSet)
+    // 如果全部做对，根据跳题模式决定下一步
+    if (skipMode.value === 'reading' || skipMode.value === 'cloze') {
+      // 跳题模式开启，查找指定类型的下一个题集
+      const targetType = skipMode.value
+      const jumped = jumpToNextQuestionSetByType(targetType)
+      
+      if (jumped) {
+        selectedOptionId.value = ''
+        isCorrect.value = false
+        console.log(`跳题模式：成功跳转到下一个${targetType === 'reading' ? '阅读理解' : '完形填空'}题集`)
+        return
+      } else {
+        console.log(`跳题模式：没有找到${targetType === 'reading' ? '阅读理解' : '完形填空'}题集，使用默认逻辑`)
+      }
+    }
     
-    // 如果全部做对，尝试移动到下一个题集
+    // 默认逻辑：尝试移动到下一个题集
     const result = questionStore.moveToNextQuestionSet()
     console.log('移动到下一个题集结果:', result)
     
@@ -399,6 +479,83 @@ function getCorrectRateClass(rate: number): string {
 // 切换文章展开收起
 function toggleArticle() {
   isArticleExpanded.value = !isArticleExpanded.value
+}
+
+// 切换跳题菜单显示
+function toggleSkipMenu() {
+  showSkipMenu.value = !showSkipMenu.value
+}
+
+// 设置跳题模式
+function setSkipMode(mode: string) {
+  skipMode.value = mode
+  showSkipMenu.value = false
+}
+
+// 获取跳题模式按钮样式类
+function getSkipModeButtonClass(): string {
+  switch (skipMode.value) {
+    case 'reading':
+      return 'bg-green-100 text-green-700 hover:bg-green-200'
+    case 'cloze':
+      return 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+    default:
+      return 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+  }
+}
+
+// 获取跳题模式按钮文本
+function getSkipModeButtonText(): string {
+  switch (skipMode.value) {
+    case 'reading':
+      return '跳题模式: 阅读理解'
+    case 'cloze':
+      return '跳题模式: 完形填空'
+    default:
+      return '跳题模式: 关闭'
+  }
+}
+
+// 根据类型跳转到下一个题集
+function jumpToNextQuestionSetByType(targetType: string): boolean {
+  // 获取所有章节的所有题集
+  const allQuestionSets: Array<{chapterId: string, questionSet: any}> = []
+  questionStore.chapters.forEach(chapter => {
+    chapter.questionSets.forEach(set => {
+      allQuestionSets.push({
+        chapterId: chapter.id,
+        questionSet: set
+      })
+    })
+  })
+  
+  // 找到当前题集的位置
+  const currentIndex = allQuestionSets.findIndex(item => 
+    item.chapterId === questionStore.currentChapterId && 
+    item.questionSet.id === questionStore.currentQuestionSetId
+  )
+  
+  // 从当前位置开始查找下一个指定类型的题集
+  for (let i = currentIndex + 1; i < allQuestionSets.length; i++) {
+    if (allQuestionSets[i].questionSet.type === targetType) {
+      // 找到下一个指定类型的题集，跳转过去
+      questionStore.setCurrentChapter(allQuestionSets[i].chapterId)
+      questionStore.setCurrentQuestionSet(allQuestionSets[i].questionSet.id)
+      return true
+    }
+  }
+  
+  // 如果没找到，从头开始查找第一个指定类型的题集
+  for (let i = 0; i <= currentIndex; i++) {
+    if (allQuestionSets[i].questionSet.type === targetType) {
+      questionStore.setCurrentChapter(allQuestionSets[i].chapterId)
+      questionStore.setCurrentQuestionSet(allQuestionSets[i].questionSet.id)
+      return true
+    }
+  }
+  
+  // 如果还是没找到，返回false
+  return false
 }
 </script>
 
