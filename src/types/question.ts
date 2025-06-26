@@ -12,7 +12,7 @@ export interface Option {
 // 问题类型
 export interface Question {
   id: string;
-  type: 'reading' | 'cloze'; // 阅读理解 or 完形填空
+  type: 'reading' | 'cloze' | 'translation'; // 阅读理解 or 完形填空 or 英翻中
   text: string;
   textCN?: string; // 中文翻译（可选）
   options: Option[];
@@ -34,7 +34,7 @@ export interface QuestionSet {
   id: string;
   title: string;
   description: string;
-  type: 'reading' | 'cloze'; // 阅读理解 or 完形填空
+  type: 'reading' | 'cloze' | 'translation'; // 阅读理解 or 完形填空 or 英翻中
   article?: Article; // 阅读理解文章（仅阅读理解类型需要）
   questions: Question[];
 }

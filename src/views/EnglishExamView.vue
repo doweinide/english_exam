@@ -43,9 +43,10 @@
               <h3 class="text-lg font-medium text-gray-800">{{ set.title }}</h3>
               <div class="question-set-type px-3 py-1 text-xs font-medium rounded-full" :class="{
                 'bg-blue-100 text-blue-800': set.type === 'reading',
-                'bg-green-100 text-green-800': set.type === 'cloze'
+                'bg-green-100 text-green-800': set.type === 'cloze',
+                'bg-purple-100 text-purple-800': set.type === 'translation'
               }">
-                {{ set.type === 'reading' ? '阅读理解' : '完形填空' }}
+                {{ set.type === 'reading' ? '阅读理解' : set.type === 'cloze' ? '完形填空' : '英译汉' }}
               </div>
             </div>
             

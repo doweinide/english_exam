@@ -58,6 +58,16 @@
             </svg>
             自动跳转完形填空
           </button>
+          <button 
+            @click="setSkipMode('translation')"
+            class="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center"
+            :class="skipMode === 'translation' ? 'bg-purple-50 text-purple-700' : ''"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" :class="skipMode === 'translation' ? 'text-purple-600' : 'text-gray-400'" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.723 1.447a1 1 0 11-1.79-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" />
+            </svg>
+            自动跳转英译汉
+          </button>
         </div>
       </div>
       
@@ -134,15 +144,66 @@
       
       <!-- 问题区域（动态高度） -->
       <div v-if="currentQuestion" class="bg-white rounded-lg shadow-md p-3 sm:p-4 mb-4 flex-grow flex flex-col overflow-hidden min-h-0">
-      <div class="text-base sm:text-lg font-medium mb-4 flex-shrink-0">
-        <span>{{ currentQuestion.text }}</span>
-        <p v-if="questionStore.showChinese && currentQuestion.textCN" class="text-gray-600 mt-1 text-sm sm:text-base">
-          {{ currentQuestion.textCN }}
-        </p>
+      
+      <!-- 翻译题型特殊显示 -->
+      <div v-if="currentQuestion.type === 'translation'" class="flex-grow flex flex-col">
+        <div class="text-base sm:text-lg font-medium mb-4 flex-shrink-0">
+          <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <div class="flex items-center mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.723 1.447a1 1 0 11-1.79-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" />
+              </svg>
+              <span class="text-blue-800 font-medium">英译汉练习</span>
+            </div>
+            <p class="text-blue-700 text-sm">请将下面的英文翻译成中文，然后点击"显示答案"查看参考翻译</p>
+          </div>
+        </div>
+        
+        <div class="flex-grow flex flex-col">
+          <div class="bg-gray-50 p-4 rounded-lg mb-4 flex-grow">
+            <h3 class="text-sm text-gray-600 mb-2">英文原文：</h3>
+            <p class="text-base sm:text-lg leading-relaxed text-gray-900">{{ currentQuestion.text }}</p>
+          </div>
+          
+          <div v-if="showTranslationAnswer" class="bg-green-50 p-4 rounded-lg mb-4 border-l-4 border-green-400">
+            <h3 class="text-sm text-green-700 mb-2 font-medium">参考翻译：</h3>
+            <p class="text-base sm:text-lg leading-relaxed text-green-800">{{ currentQuestion.textCN }}</p>
+            <div v-if="currentQuestion.explanation" class="mt-3 pt-3 border-t border-green-200">
+              <h4 class="text-sm text-green-700 mb-1 font-medium">解析：</h4>
+              <p class="text-sm text-green-700">{{ currentQuestion.explanation }}</p>
+            </div>
+          </div>
+          
+          <div class="flex justify-center mb-4">
+            <button 
+              v-if="!showTranslationAnswer"
+              @click="showTranslationAnswer = true"
+              class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+            >
+              显示答案
+            </button>
+            <button 
+              v-else
+              @click="nextTranslationQuestion"
+              class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            >
+              {{ isLastQuestion ? '完成练习' : '下一题' }}
+            </button>
+          </div>
+        </div>
       </div>
       
-      <!-- 选项列表 - 使用flex布局占领高度 -->
-      <div class="flex flex-col  gap-2 sm:gap-3 overflow-y-auto">
+      <!-- 非翻译题型的常规显示 -->
+      <div v-else>
+        <div class="text-base sm:text-lg font-medium mb-4 flex-shrink-0">
+          <span>{{ currentQuestion.text }}</span>
+          <p v-if="questionStore.showChinese && currentQuestion.textCN" class="text-gray-600 mt-1 text-sm sm:text-base">
+            {{ currentQuestion.textCN }}
+          </p>
+        </div>
+        
+        <!-- 选项列表 - 使用flex布局占领高度 -->
+        <div class="flex flex-col  gap-2 sm:gap-3 overflow-y-auto">
         <div 
           v-for="option in currentQuestion.options" 
           :key="option.id"
@@ -168,10 +229,13 @@
               <div v-if="questionStore.showChinese && option.textCN" class="text-gray-600 text-xs sm:text-sm mt-1 leading-relaxed">
                 {{ option.textCN }}
               </div>
-            </div>
           </div>
         </div>
+        </div>
       </div>
+    
+
+    </div>
     </div>
     
 
@@ -238,8 +302,10 @@ const isCorrect = ref<boolean>(false)
 const isArticleExpanded = ref<boolean>(false)
 // 是否显示跳题菜单
 const showSkipMenu = ref<boolean>(false)
-// 跳题模式状态：'off' | 'reading' | 'cloze'
+// 跳题模式状态：'off' | 'reading' | 'cloze' | 'translation'
 const skipMode = ref<string>('off')
+// 是否显示翻译答案
+const showTranslationAnswer = ref<boolean>(false)
 
 // 计算属性
 const currentChapter = computed(() => questionStore.currentChapter)
@@ -268,6 +334,7 @@ const questionCorrectRate = computed(() => {
 watch(currentQuestion, () => {
   selectedOptionId.value = ''
   isCorrect.value = false
+  showTranslationAnswer.value = false
 })
 
 // 添加鼠标右键事件监听
@@ -405,7 +472,7 @@ function finishQuestionSet() {
   
   if (allCorrect) {
     // 如果全部做对，根据跳题模式决定下一步
-    if (skipMode.value === 'reading' || skipMode.value === 'cloze') {
+    if (skipMode.value === 'reading' || skipMode.value === 'cloze' || skipMode.value === 'translation') {
       // 跳题模式开启，查找指定类型的下一个题集
       const targetType = skipMode.value
       const jumped = jumpToNextQuestionSetByType(targetType)
@@ -413,10 +480,21 @@ function finishQuestionSet() {
       if (jumped) {
         selectedOptionId.value = ''
         isCorrect.value = false
-        console.log(`跳题模式：成功跳转到下一个${targetType === 'reading' ? '阅读理解' : '完形填空'}题集`)
+        showTranslationAnswer.value = false
+        const typeNames = {
+          'reading': '阅读理解',
+          'cloze': '完形填空',
+          'translation': '英译汉'
+        }
+        console.log(`跳题模式：成功跳转到下一个${typeNames[targetType as keyof typeof typeNames]}题集`)
         return
       } else {
-        console.log(`跳题模式：没有找到${targetType === 'reading' ? '阅读理解' : '完形填空'}题集，使用默认逻辑`)
+        const typeNames = {
+          'reading': '阅读理解',
+          'cloze': '完形填空',
+          'translation': '英译汉'
+        }
+        console.log(`跳题模式：没有找到${typeNames[targetType as keyof typeof typeNames]}题集，使用默认逻辑`)
       }
     }
     
@@ -428,12 +506,14 @@ function finishQuestionSet() {
       // 如果成功移动到下一个题集
       selectedOptionId.value = ''
       isCorrect.value = false
+      showTranslationAnswer.value = false
       console.log('全部做对，进入下一个题集:', questionStore.currentQuestionSet?.title)
     } else {
       // 如果没有下一个题集，但全部做对了，提示用户并重置当前题集
       questionStore.resetCurrentSetProgress()
       selectedOptionId.value = ''
       isCorrect.value = false
+      showTranslationAnswer.value = false
       console.log('已完成所有题集，重新开始当前题集')
     }
   } else {
@@ -441,6 +521,7 @@ function finishQuestionSet() {
     questionStore.resetCurrentSetProgress()
     selectedOptionId.value = ''
     isCorrect.value = false
+    showTranslationAnswer.value = false
     console.log('未全部做对，重新开始当前题集，当前问题索引:', questionStore.currentQuestionIndex)
   }
   
@@ -499,6 +580,8 @@ function getSkipModeButtonClass(): string {
       return 'bg-green-100 text-green-700 hover:bg-green-200'
     case 'cloze':
       return 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+    case 'translation':
+      return 'bg-purple-100 text-purple-700 hover:bg-purple-200'
     default:
       return 'bg-gray-100 text-gray-700 hover:bg-gray-200'
   }
@@ -511,8 +594,19 @@ function getSkipModeButtonText(): string {
       return '跳题模式: 阅读理解'
     case 'cloze':
       return '跳题模式: 完形填空'
+    case 'translation':
+      return '跳题模式: 英译汉'
     default:
       return '跳题模式: 关闭'
+  }
+}
+
+// 翻译题型的下一题方法
+function nextTranslationQuestion() {
+  if (isLastQuestion.value) {
+    finishQuestionSet()
+  } else {
+    questionStore.moveToNextQuestion()
   }
 }
 
