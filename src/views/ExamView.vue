@@ -264,22 +264,32 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM6.5 9a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm7 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd" />
             </svg>
-            <span>点击鼠标右键进入下一题</span>
+            <span>点击鼠标右键或按→键进入下一题</span>
+            <span v-if="canShowPreviousButton" class="ml-2">按←键返回上一题</span>
           </div>
-          <button 
-            v-if="isLastQuestion"
-            @click="finishQuestionSet"
-            class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm sm:text-base"
-          >
-            完成
-          </button>
-          <button 
-            v-else
-            @click="nextQuestion"
-            class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm sm:text-base"
-          >
-            下一题
-          </button>
+          <div class="flex gap-2">
+            <button 
+              v-if="canShowPreviousButton"
+              @click="previousQuestion"
+              class="px-3 py-1.5 sm:px-4 sm:py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm sm:text-base"
+            >
+              上一题
+            </button>
+            <button 
+              v-if="isLastQuestion"
+              @click="finishQuestionSet"
+              class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm sm:text-base"
+            >
+              完成
+            </button>
+            <button 
+              v-else
+              @click="nextQuestion"
+              class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm sm:text-base"
+            >
+              下一题
+            </button>
+          </div>
         </div>
       </div>
   </div>
@@ -325,6 +335,11 @@ const isLastQuestion = computed(() => {
   return questionStore.currentQuestionIndex === currentSet.value.questions.length - 1
 })
 
+// 是否可以显示上一题按钮
+const canShowPreviousButton = computed(() => {
+  return questionStore.currentQuestionIndex > 0
+})
+
 // 计算当前题目的正确率
 const questionCorrectRate = computed(() => {
   if (!currentQuestion.value) return 0
@@ -366,10 +381,28 @@ function handleClickOutside(event: MouseEvent) {
   }
 }
 
+// 处理键盘事件
+function handleKeyDown(event: KeyboardEvent) {
+  // 左箭头键 - 上一题
+  if (event.key === 'ArrowLeft' && canShowPreviousButton.value) {
+    previousQuestion()
+  }
+  
+  // 右箭头键 - 下一题或完成
+  if (event.key === 'ArrowRight' && selectedOptionId.value) {
+    if (isLastQuestion.value) {
+      finishQuestionSet()
+    } else {
+      nextQuestion()
+    }
+  }
+}
+
 // 组件挂载时添加事件监听
 onMounted(() => {
   window.addEventListener('contextmenu', handleContextMenu)
   window.addEventListener('click', handleClickOutside)
+  window.addEventListener('keydown', handleKeyDown)
   
   // 从查询参数获取章节ID和题集ID
   const chapterId = route.query.chapterId as string
@@ -389,6 +422,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('contextmenu', handleContextMenu)
   window.removeEventListener('click', handleClickOutside)
+  window.removeEventListener('keydown', handleKeyDown)
 })
 
 // 选择选项
@@ -474,6 +508,49 @@ function nextQuestion() {
   
   // 移动到下一题
   questionStore.moveToNextQuestion()
+}
+
+// 上一题
+function previousQuestion() {
+  console.log('开始执行上一题功能，当前题目索引:', questionStore.currentQuestionIndex)
+  
+  // 检查是否是第一题
+  if (questionStore.currentQuestionIndex <= 0) {
+    console.log('已经是第一题，无法返回上一题')
+    return
+  }
+  
+  // 手动实现移动到上一题的逻辑
+  questionStore.currentQuestionIndex -= 1
+  console.log('移动到上一题，移动后题目索引:', questionStore.currentQuestionIndex)
+  
+  // 重置选中状态
+  selectedOptionId.value = ''
+  isCorrect.value = false
+  
+  // 获取当前问题的最新答题记录（因为已经移动到上一题，所以currentQuestion.value已经是上一题了）
+  if (currentQuestion.value) {
+    const questionId = currentQuestion.value.id
+    console.log('当前问题ID:', questionId)
+    
+    const userAnswersForQuestion = questionStore.userAnswers
+      .filter(answer => answer.questionId === questionId)
+      .sort((a, b) => b.timestamp - a.timestamp) // 按时间戳降序排序
+    
+    console.log('找到的答题记录数量:', userAnswersForQuestion.length)
+    
+    // 如果有答题记录，恢复选中状态
+    if (userAnswersForQuestion.length > 0) {
+      const latestAnswer = userAnswersForQuestion[0]
+      console.log('最新答题记录:', latestAnswer)
+      selectedOptionId.value = latestAnswer.selectedOptionId
+      isCorrect.value = latestAnswer.isCorrect
+    } else {
+      console.log('没有找到答题记录')
+    }
+  } else {
+    console.log('当前问题为空')
+  }
 }
 
 // 完成题集

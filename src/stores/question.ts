@@ -222,6 +222,18 @@ export const useQuestionStore = defineStore('question', () => {
     return false // 已经是最后一题
   }
   
+  // 移动到上一题
+  function moveToPreviousQuestion() {
+    if (!currentQuestionSet.value) return false
+    
+    if (currentQuestionIndex.value > 0) {
+      currentQuestionIndex.value -= 1
+      return true
+    }
+    
+    return false // 已经是第一题
+  }
+  
   // 获取下一个题集
   function getNextQuestionSet(): { chapterId: string, questionSetId: string } | null {
     console.log('开始获取下一个题集，当前章节:', currentChapterId.value, '当前题集:', currentQuestionSetId.value)
@@ -470,6 +482,7 @@ export const useQuestionStore = defineStore('question', () => {
     setCurrentChapter,
     setCurrentQuestionSet,
     moveToNextQuestion,
+    moveToPreviousQuestion,
     moveToNextQuestionSet,
     getNextQuestionSet,
     getQuestionCorrectRate,
