@@ -121,7 +121,7 @@ onMounted(() => {
 function startQuestionSet(chapterId: string, questionSetId: string) {
   questionStore.setCurrentChapter(chapterId)
   questionStore.setCurrentQuestionSet(questionSetId)
-  router.push('/exam')
+  router.push(`/exam?chapterId=${chapterId}&questionSetId=${questionSetId}`)
 }
 
 // 获取章节正确率

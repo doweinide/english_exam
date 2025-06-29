@@ -287,12 +287,13 @@
 
 <script setup lang="ts">
 import { useQuestionStore } from '@/stores/question'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import type { Option } from '@/types/question'
 
 const questionStore = useQuestionStore()
 const router = useRouter()
+const route = useRoute()
 
 // 当前选中的选项ID
 const selectedOptionId = ref<string>('')
@@ -369,6 +370,19 @@ function handleClickOutside(event: MouseEvent) {
 onMounted(() => {
   window.addEventListener('contextmenu', handleContextMenu)
   window.addEventListener('click', handleClickOutside)
+  
+  // 从查询参数获取章节ID和题集ID
+  const chapterId = route.query.chapterId as string
+  const questionSetId = route.query.questionSetId as string
+  
+  if (chapterId && questionSetId) {
+    console.log('从查询参数获取章节ID和题集ID:', chapterId, questionSetId)
+    questionStore.setCurrentChapter(chapterId)
+    questionStore.setCurrentQuestionSet(questionSetId)
+  } else {
+    console.error('查询参数缺失，无法加载题目')
+    router.push('/')
+  }
 })
 
 // 组件卸载时移除事件监听
@@ -508,6 +522,9 @@ function finishQuestionSet() {
       isCorrect.value = false
       showTranslationAnswer.value = false
       console.log('全部做对，进入下一个题集:', questionStore.currentQuestionSet?.title)
+      
+      // 更新查询参数
+      router.push(`/exam?chapterId=${questionStore.currentChapterId}&questionSetId=${questionStore.currentQuestionSetId}`)
     } else {
       // 如果没有下一个题集，但全部做对了，提示用户并重置当前题集
       questionStore.resetCurrentSetProgress()
@@ -603,6 +620,15 @@ function getSkipModeButtonText(): string {
 
 // 翻译题型的下一题方法
 function nextTranslationQuestion() {
+  // 记录答题结果 - 翻译题型默认为正确
+  if (currentQuestion.value) {
+    questionStore.recordAnswer(
+      currentQuestion.value.id,
+      'translation', // 翻译题型没有选项ID，使用固定值
+      true // 翻译题型默认为正确
+    )
+  }
+  
   if (isLastQuestion.value) {
     finishQuestionSet()
   } else {
@@ -633,8 +659,12 @@ function jumpToNextQuestionSetByType(targetType: string): boolean {
   for (let i = currentIndex + 1; i < allQuestionSets.length; i++) {
     if (allQuestionSets[i].questionSet.type === targetType) {
       // 找到下一个指定类型的题集，跳转过去
-      questionStore.setCurrentChapter(allQuestionSets[i].chapterId)
-      questionStore.setCurrentQuestionSet(allQuestionSets[i].questionSet.id)
+      const nextChapterId = allQuestionSets[i].chapterId
+      const nextSetId = allQuestionSets[i].questionSet.id
+      questionStore.setCurrentChapter(nextChapterId)
+      questionStore.setCurrentQuestionSet(nextSetId)
+      // 更新查询参数
+      router.push(`/exam?chapterId=${nextChapterId}&questionSetId=${nextSetId}`)
       return true
     }
   }
@@ -642,8 +672,12 @@ function jumpToNextQuestionSetByType(targetType: string): boolean {
   // 如果没找到，从头开始查找第一个指定类型的题集
   for (let i = 0; i <= currentIndex; i++) {
     if (allQuestionSets[i].questionSet.type === targetType) {
-      questionStore.setCurrentChapter(allQuestionSets[i].chapterId)
-      questionStore.setCurrentQuestionSet(allQuestionSets[i].questionSet.id)
+      const nextChapterId = allQuestionSets[i].chapterId
+      const nextSetId = allQuestionSets[i].questionSet.id
+      questionStore.setCurrentChapter(nextChapterId)
+      questionStore.setCurrentQuestionSet(nextSetId)
+      // 更新查询参数
+      router.push(`/exam?chapterId=${nextChapterId}&questionSetId=${nextSetId}`)
       return true
     }
   }
