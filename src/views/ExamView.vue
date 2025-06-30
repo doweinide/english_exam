@@ -300,6 +300,7 @@ import { useQuestionStore } from '@/stores/question'
 import { useRouter, useRoute } from 'vue-router'
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import type { Option } from '@/types/question'
+// 注意：不在这里直接导入 questionData，而是在需要时动态导入
 
 const questionStore = useQuestionStore()
 const router = useRouter()
@@ -410,13 +411,58 @@ onMounted(() => {
   
   if (chapterId && questionSetId) {
     console.log('从查询参数获取章节ID和题集ID:', chapterId, questionSetId)
-    questionStore.setCurrentChapter(chapterId)
-    questionStore.setCurrentQuestionSet(questionSetId)
+    
+    // 确保题库数据已加载
+    if (questionStore.chapters.length === 0) {
+      console.log('题库数据未加载，正在从 questionData 加载...')
+      // 导入题库数据
+      import('@/data/questionData').then(({ questionData }) => {
+        // 初始化题库数据
+        questionStore.initQuestionData(questionData)
+        console.log('题库数据加载完成，章节数量:', questionStore.chapters.length)
+        
+        // 数据加载后再检查章节和题集
+        loadChapterAndQuestionSet(chapterId, questionSetId)
+      }).catch(error => {
+        console.error('加载题库数据失败:', error)
+        router.push('/')
+      })
+    } else {
+      // 题库数据已加载，直接检查章节和题集
+      loadChapterAndQuestionSet(chapterId, questionSetId)
+    }
   } else {
     console.error('查询参数缺失，无法加载题目')
     router.push('/')
   }
 })
+
+// 加载章节和题集
+function loadChapterAndQuestionSet(chapterId: string, questionSetId: string) {
+  // 检查章节是否存在
+  const chapterExists = questionStore.chapters.some(chapter => chapter.id === chapterId)
+  if (!chapterExists) {
+    console.error(`章节 ${chapterId} 不存在`)
+    router.push('/')
+    return
+  }
+  
+  // 设置当前章节
+  questionStore.setCurrentChapter(chapterId)
+  
+  // 检查题集是否存在
+  const chapter = questionStore.chapters.find(chapter => chapter.id === chapterId)
+  const questionSetExists = chapter?.questionSets.some(set => set.id === questionSetId)
+  if (!questionSetExists) {
+    console.error(`题集 ${questionSetId} 不存在于章节 ${chapterId} 中`)
+    router.push('/')
+    return
+  }
+  
+  // 设置当前题集
+  questionStore.setCurrentQuestionSet(questionSetId)
+  console.log('成功加载章节和题集:', chapterId, questionSetId)
+}
 
 // 组件卸载时移除事件监听
 onUnmounted(() => {
