@@ -23,7 +23,7 @@ class ErrorHandler {
       this.showError({ message: String(message) });
     };
 
-    window.addEventListener('unhandledrejection', (event) => {
+    window.addEventListener('unhandledrejection', event => {
       console.error('Unhandled promise rejection:', event.reason);
       this.showError({ message: String(event.reason) });
     });
@@ -37,7 +37,8 @@ class ErrorHandler {
 
   // HTTP错误处理
   public handleHttpError(error: any) {
-    const message = error.response?.data?.message || error.message || '未知错误';
+    const message =
+      error.response?.data?.message || error.message || '未知错误';
     this.showError({ message });
   }
 
@@ -48,4 +49,4 @@ class ErrorHandler {
   }
 }
 
-export const errorHandler = ErrorHandler.getInstance(); 
+export const errorHandler = ErrorHandler.getInstance();

@@ -50,6 +50,9 @@ export const getUserInfo = (config?: AxiosRequestConfig) => {
  * @param data 用户信息
  * @param config 请求配置
  */
-export const updateUserInfo = (data: Partial<UserInfo>, config?: AxiosRequestConfig) => {
+export const updateUserInfo = (
+  data: Partial<UserInfo>,
+  config?: AxiosRequestConfig
+) => {
   return post<ResponseData<UserInfo>>('/user/update', data, config);
-}; 
+};

@@ -14,7 +14,7 @@ const service: AxiosInstance = axios.create({
 
 // 请求拦截器
 service.interceptors.request.use(
-  (config) => {
+  config => {
     // 开启进度条
     NProgress.start();
 
@@ -37,7 +37,7 @@ service.interceptors.request.use(
 
     return config;
   },
-  (error) => {
+  error => {
     NProgress.done();
     console.error('请求错误：', error);
     return Promise.reject(error);
@@ -72,7 +72,7 @@ service.interceptors.response.use(
     }
     return res;
   },
-  (error) => {
+  error => {
     NProgress.done();
     console.error('响应错误：', error);
     return Promise.reject(error);
@@ -80,23 +80,38 @@ service.interceptors.response.use(
 );
 
 // 封装GET请求
-export const get = <T>(url: string, params?: any, config: AxiosRequestConfig = {}): Promise<T> => {
+export const get = <T>(
+  url: string,
+  params?: any,
+  config: AxiosRequestConfig = {}
+): Promise<T> => {
   return service.get(url, { params, ...config });
 };
 
 // 封装POST请求
-export const post = <T>(url: string, data?: any, config: AxiosRequestConfig = {}): Promise<T> => {
+export const post = <T>(
+  url: string,
+  data?: any,
+  config: AxiosRequestConfig = {}
+): Promise<T> => {
   return service.post(url, data, config);
 };
 
 // 封装PUT请求
-export const put = <T>(url: string, data?: any, config: AxiosRequestConfig = {}): Promise<T> => {
+export const put = <T>(
+  url: string,
+  data?: any,
+  config: AxiosRequestConfig = {}
+): Promise<T> => {
   return service.put(url, data, config);
 };
 
 // 封装DELETE请求
-export const del = <T>(url: string, config: AxiosRequestConfig = {}): Promise<T> => {
+export const del = <T>(
+  url: string,
+  config: AxiosRequestConfig = {}
+): Promise<T> => {
   return service.delete(url, config);
 };
 
-export default service; 
+export default service;

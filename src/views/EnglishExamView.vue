@@ -314,161 +314,163 @@
 </template>
 
 <script setup lang="ts">
-  import { useQuestionStore } from '@/stores/question'
-  import { useRouter } from 'vue-router'
-  import { onMounted, ref, reactive, computed } from 'vue'
-  import { questionData } from '@/data/questionData'
-  import type { Chapter, QuestionSet } from '@/types/question'
+  import { useQuestionStore } from '@/stores/question';
+  import { useRouter } from 'vue-router';
+  import { onMounted, ref, reactive, computed } from 'vue';
+  import { questionData } from '@/data/questionData';
+  import type { Chapter, QuestionSet } from '@/types/question';
 
-  const questionStore = useQuestionStore()
-  const router = useRouter()
+  const questionStore = useQuestionStore();
+  const router = useRouter();
 
   // 用于跟踪每个章节的展开/收起状态
-  const expandedChapters = reactive<Record<string, boolean>>({})
+  const expandedChapters = reactive<Record<string, boolean>>({});
 
   // 搜索和筛选状态
-  const searchQuery = ref('')
-  const typeFilter = ref('all')
-  const sortOption = ref('default')
-  const currentPage = ref(1)
-  const chaptersPerPage = ref(3) // 每页显示的章节数
+  const searchQuery = ref('');
+  const typeFilter = ref('all');
+  const sortOption = ref('default');
+  const currentPage = ref(1);
+  const chaptersPerPage = ref(3); // 每页显示的章节数
 
   // 计算属性：筛选后的章节列表
   const filteredChapters = computed(() => {
     // 首先筛选章节
-    let result = [...questionStore.chapters]
+    let result = [...questionStore.chapters];
 
     // 对每个章节的题集应用筛选
     result = result.map(chapter => {
       // 创建章节的深拷贝
-      const chapterCopy = { ...chapter }
+      const chapterCopy = { ...chapter };
 
       // 筛选题集
-      let filteredSets = [...chapter.questionSets]
+      let filteredSets = [...chapter.questionSets];
 
       // 应用类型筛选
       if (typeFilter.value !== 'all') {
-        filteredSets = filteredSets.filter(set => set.type === typeFilter.value)
+        filteredSets = filteredSets.filter(
+          set => set.type === typeFilter.value
+        );
       }
 
       // 应用搜索查询
       if (searchQuery.value.trim()) {
-        const query = searchQuery.value.toLowerCase()
+        const query = searchQuery.value.toLowerCase();
         filteredSets = filteredSets.filter(
           set =>
             set.title.toLowerCase().includes(query) ||
             set.description.toLowerCase().includes(query)
-        )
+        );
       }
 
       // 应用排序
       if (sortOption.value === 'correctRate') {
         filteredSets.sort((a, b) => {
-          const rateA = getSetCorrectRate(chapter.id, a.id)
-          const rateB = getSetCorrectRate(chapter.id, b.id)
-          return rateB - rateA // 降序排列
-        })
+          const rateA = getSetCorrectRate(chapter.id, a.id);
+          const rateB = getSetCorrectRate(chapter.id, b.id);
+          return rateB - rateA; // 降序排列
+        });
       } else if (sortOption.value === 'lastAttempt') {
         filteredSets.sort((a, b) => {
-          const dateA = getLastAttemptDate(chapter.id, a.id) || 0
-          const dateB = getLastAttemptDate(chapter.id, b.id) || 0
-          return dateB - dateA // 降序排列，最近的在前
-        })
+          const dateA = getLastAttemptDate(chapter.id, a.id) || 0;
+          const dateB = getLastAttemptDate(chapter.id, b.id) || 0;
+          return dateB - dateA; // 降序排列，最近的在前
+        });
       }
 
       // 更新章节的题集
-      chapterCopy.questionSets = filteredSets
+      chapterCopy.questionSets = filteredSets;
 
-      return chapterCopy
-    })
+      return chapterCopy;
+    });
 
     // 过滤掉没有题集的章节
-    result = result.filter(chapter => chapter.questionSets.length > 0)
+    result = result.filter(chapter => chapter.questionSets.length > 0);
 
-    return result
-  })
+    return result;
+  });
 
   // 计算属性：分页后的章节列表
   const paginatedChapters = computed(() => {
-    const startIndex = (currentPage.value - 1) * chaptersPerPage.value
+    const startIndex = (currentPage.value - 1) * chaptersPerPage.value;
     return filteredChapters.value.slice(
       startIndex,
       startIndex + chaptersPerPage.value
-    )
-  })
+    );
+  });
 
   // 计算属性：总页数
   const totalPages = computed(() => {
-    return Math.ceil(filteredChapters.value.length / chaptersPerPage.value)
-  })
+    return Math.ceil(filteredChapters.value.length / chaptersPerPage.value);
+  });
 
   // 切换页面
   function changePage(page: number) {
-    currentPage.value = page
+    currentPage.value = page;
     // 滚动到页面顶部
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   onMounted(() => {
-    console.log('组件挂载，开始初始化数据')
+    console.log('组件挂载，开始初始化数据');
     // 初始化题库数据
-    questionStore.initQuestionData(questionData)
+    questionStore.initQuestionData(questionData);
 
     // 确保数据加载后再初始化展开状态
-    console.log('题库数据加载完成，章节数量:', questionStore.chapters.length)
+    console.log('题库数据加载完成，章节数量:', questionStore.chapters.length);
 
     // 初始化所有章节为展开状态
     if (questionStore.chapters.length > 0) {
       questionStore.chapters.forEach(chapter => {
-        console.log('初始化章节展开状态:', chapter.id)
-        expandedChapters[chapter.id] = true
-      })
+        console.log('初始化章节展开状态:', chapter.id);
+        expandedChapters[chapter.id] = true;
+      });
 
       // 根据章节数量调整每页显示的章节数
       if (questionStore.chapters.length <= 3) {
-        chaptersPerPage.value = questionStore.chapters.length
+        chaptersPerPage.value = questionStore.chapters.length;
       } else {
         // 在移动设备上显示更少的章节
-        const isMobile = window.innerWidth < 768
-        chaptersPerPage.value = isMobile ? 2 : 3
+        const isMobile = window.innerWidth < 768;
+        chaptersPerPage.value = isMobile ? 2 : 3;
       }
     } else {
-      console.warn('没有找到章节数据')
+      console.warn('没有找到章节数据');
     }
 
     // 监听窗口大小变化，调整每页显示的章节数
-    window.addEventListener('resize', handleResize)
-  })
+    window.addEventListener('resize', handleResize);
+  });
 
   // 处理窗口大小变化
   function handleResize() {
-    const isMobile = window.innerWidth < 768
-    chaptersPerPage.value = isMobile ? 2 : 3
+    const isMobile = window.innerWidth < 768;
+    chaptersPerPage.value = isMobile ? 2 : 3;
 
     // 确保当前页码有效
     if (currentPage.value > totalPages.value) {
-      currentPage.value = totalPages.value || 1
+      currentPage.value = totalPages.value || 1;
     }
   }
 
   // 开始做题
   function startQuestionSet(chapterId: string, questionSetId: string) {
-    questionStore.setCurrentChapter(chapterId)
-    questionStore.setCurrentQuestionSet(questionSetId)
-    router.push(`/exam?chapterId=${chapterId}&questionSetId=${questionSetId}`)
+    questionStore.setCurrentChapter(chapterId);
+    questionStore.setCurrentQuestionSet(questionSetId);
+    router.push(`/exam?chapterId=${chapterId}&questionSetId=${questionSetId}`);
   }
 
   // 获取章节正确率
   function getChapterCorrectRate(chapterId: string): number {
-    const progress = questionStore.chapterProgress[chapterId]
-    return progress ? progress.totalCorrectRate * 100 : 0
+    const progress = questionStore.chapterProgress[chapterId];
+    return progress ? progress.totalCorrectRate * 100 : 0;
   }
 
   // 获取题集正确率
   function getSetCorrectRate(chapterId: string, setId: string): number {
     const progress =
-      questionStore.chapterProgress[chapterId]?.questionSetProgress[setId]
-    if (!progress || progress.completedQuestions === 0) return 0
-    return (progress.correctAnswers / progress.completedQuestions) * 100
+      questionStore.chapterProgress[chapterId]?.questionSetProgress[setId];
+    if (!progress || progress.completedQuestions === 0) return 0;
+    return (progress.correctAnswers / progress.completedQuestions) * 100;
   }
 
   // 获取上次练习日期
@@ -477,47 +479,47 @@
     setId: string
   ): number | undefined {
     return questionStore.chapterProgress[chapterId]?.questionSetProgress[setId]
-      ?.lastAttemptDate
+      ?.lastAttemptDate;
   }
 
   // 格式化正确率
   function formatCorrectRate(rate: number): string {
-    return rate.toFixed(1)
+    return rate.toFixed(1);
   }
 
   // 根据正确率获取样式类
   function getCorrectRateClass(rate: number): string {
-    if (rate === 0) return 'text-gray-500'
-    if (rate < 60) return 'text-red-500'
-    if (rate < 80) return 'text-yellow-500'
-    return 'text-green-500'
+    if (rate === 0) return 'text-gray-500';
+    if (rate < 60) return 'text-red-500';
+    if (rate < 80) return 'text-yellow-500';
+    return 'text-green-500';
   }
 
   // 格式化日期
   function formatDate(timestamp: number): string {
-    const date = new Date(timestamp)
-    return `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`
+    const date = new Date(timestamp);
+    return `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
   }
 
   // 切换章节的展开/收起状态
   function toggleChapter(chapterId: string, event: Event) {
     // 阻止事件冒泡，避免触发题集的点击事件
-    event.stopPropagation()
+    event.stopPropagation();
 
     // 获取当前状态
-    const currentState = expandedChapters[chapterId]
-    console.log('当前章节状态:', chapterId, currentState)
+    const currentState = expandedChapters[chapterId];
+    console.log('当前章节状态:', chapterId, currentState);
 
     // 切换状态
-    expandedChapters[chapterId] = !currentState
+    expandedChapters[chapterId] = !currentState;
 
     // 记录新状态
-    console.log('章节状态已切换为:', chapterId, expandedChapters[chapterId])
+    console.log('章节状态已切换为:', chapterId, expandedChapters[chapterId]);
 
     // 强制DOM更新
     setTimeout(() => {
-      console.log('DOM更新后章节状态:', chapterId, expandedChapters[chapterId])
-    }, 0)
+      console.log('DOM更新后章节状态:', chapterId, expandedChapters[chapterId]);
+    }, 0);
   }
 </script>
 

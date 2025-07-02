@@ -48,7 +48,8 @@ export const pickProps = pick;
 // 类型判断工具
 export const typeUtils = {
   isArray: Array.isArray,
-  isObject: (val: unknown): val is object => val !== null && typeof val === 'object',
+  isObject: (val: unknown): val is object =>
+    val !== null && typeof val === 'object',
   isString: (val: unknown): val is string => typeof val === 'string',
   isNumber: (val: unknown): val is number => typeof val === 'number',
   isBoolean: (val: unknown): val is boolean => typeof val === 'boolean',
@@ -68,4 +69,4 @@ export default {
   excludeProps,
   pickProps,
   typeUtils,
-}; 
+};

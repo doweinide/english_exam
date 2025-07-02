@@ -3,7 +3,10 @@
  * @param date 日期
  * @param fmt 格式
  */
-export function formatDate(date: Date | string | number, fmt = 'YYYY-MM-DD HH:mm:ss') {
+export function formatDate(
+  date: Date | string | number,
+  fmt = 'YYYY-MM-DD HH:mm:ss'
+) {
   if (!date) return '';
   const d = new Date(date);
   const o: { [key: string]: number } = {
@@ -15,16 +18,21 @@ export function formatDate(date: Date | string | number, fmt = 'YYYY-MM-DD HH:mm
     'q+': Math.floor((d.getMonth() + 3) / 3),
     S: d.getMilliseconds(),
   };
-  
+
   if (/(Y+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, (d.getFullYear() + '').substr(4 - RegExp.$1.length));
+    fmt = fmt.replace(
+      RegExp.$1,
+      (d.getFullYear() + '').substr(4 - RegExp.$1.length)
+    );
   }
-  
+
   for (const k in o) {
     if (new RegExp('(' + k + ')').test(fmt)) {
       fmt = fmt.replace(
         RegExp.$1,
-        RegExp.$1.length === 1 ? o[k].toString() : ('00' + o[k]).substr(('' + o[k]).length)
+        RegExp.$1.length === 1
+          ? o[k].toString()
+          : ('00' + o[k]).substr(('' + o[k]).length)
       );
     }
   }
@@ -38,7 +46,9 @@ export function formatDate(date: Date | string | number, fmt = 'YYYY-MM-DD HH:mm
  */
 export function formatAmount(amount: number | string, decimals = 2) {
   if (!amount) return '0.00';
-  return Number(amount).toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return Number(amount)
+    .toFixed(decimals)
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 /**
@@ -57,7 +67,7 @@ export function formatFileSize(bytes: number) {
  * 生成UUID
  */
 export function generateUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
     const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
@@ -104,9 +114,12 @@ export function getBase64(file: File): Promise<string> {
  * @param fn 要执行的函数
  * @param delay 延迟时间
  */
-export function debounce<T extends (...args: any[]) => any>(fn: T, delay: number) {
+export function debounce<T extends (...args: any[]) => any>(
+  fn: T,
+  delay: number
+) {
   let timer: number;
-  return function(this: ThisParameterType<T>, ...args: Parameters<T>) {
+  return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
     window.clearTimeout(timer);
     timer = window.setTimeout(() => fn.apply(this, args), delay);
   };
@@ -117,13 +130,16 @@ export function debounce<T extends (...args: any[]) => any>(fn: T, delay: number
  * @param fn 要执行的函数
  * @param limit 限制时间
  */
-export function throttle<T extends (...args: any[]) => any>(fn: T, limit: number) {
+export function throttle<T extends (...args: any[]) => any>(
+  fn: T,
+  limit: number
+) {
   let inThrottle: boolean;
-  return function(this: ThisParameterType<T>, ...args: Parameters<T>) {
+  return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
     if (!inThrottle) {
       fn.apply(this, args);
       inThrottle = true;
       setTimeout(() => (inThrottle = false), limit);
     }
   };
-} 
+}

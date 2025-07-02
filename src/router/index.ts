@@ -1,5 +1,5 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import { setupRouterGuard } from './guard'
+import { createRouter, createWebHashHistory } from 'vue-router';
+import { setupRouterGuard } from './guard';
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -7,16 +7,16 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/EnglishExamView.vue')
+      component: () => import('@/views/EnglishExamView.vue'),
     },
     {
       path: '/exam',
       name: 'exam',
-      component: () => import('../views/ExamView.vue')
-    }
-  ]
-})
+      component: () => import('@/views/ExamView.vue'),
+    },
+  ],
+});
 
-setupRouterGuard(router)
+setupRouterGuard(router);
 
-export default router
+export default router;

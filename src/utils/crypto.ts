@@ -30,4 +30,4 @@ export const decrypt = (encryptedData: string): string => {
  */
 export const md5 = (data: string): string => {
   return CryptoJS.MD5(data).toString();
-}; 
+};

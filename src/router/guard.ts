@@ -21,7 +21,7 @@ export function setupRouterGuard(router: Router) {
       if (!token) {
         next({
           path: '/login',
-          query: { redirect: to.fullPath }
+          query: { redirect: to.fullPath },
         });
         return;
       }
@@ -37,4 +37,4 @@ export function setupRouterGuard(router: Router) {
   router.onError(() => {
     NProgress.done();
   });
-} 
+}
