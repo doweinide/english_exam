@@ -1,144 +1,142 @@
-# Vue 3 + TypeScript + Tailwind 项目模板
+# 英语考题复习系统
 
-一个功能完备的 Vue 3 项目模板，集成了 TypeScript、Tailwind CSS、Pinia 等现代开发技术。
+一个功能完备的英语考题复习做题网站，基于 Vue 3 + TypeScript + Tailwind CSS 技术栈开发，支持自定义题库，帮助用户高效备考英语考试。
 
-## ✨ 特性
+## ✨ 系统特点
 
-- 🚀 [Vue 3](https://vuejs.org/) + [Vite](https://vitejs.dev/) + [TypeScript](https://www.typescriptlang.org/)
-- 🎨 [Tailwind CSS](https://tailwindcss.com/) - 原子化 CSS 框架
-- 📦 [Pinia](https://pinia.vuejs.org/) - Vue 状态管理
-- 🔒 请求加密 - 基于 crypto-js 的数据加密
-- 📡 [Axios](https://axios-http.com/) - 请求库封装
-- 🛠 [Lodash](https://lodash.com/) - 工具函数封装
-- 🎯 ESLint + Prettier - 代码规范
-- 📱 PWA 支持
-- 🗂 多环境配置
-- 📊 构建分析
-- 🔥 热更新
-- 🔧 代码分块优化
+- 📚 **多题型支持**：支持阅读理解、完形填空、英译汉三种常见题型
+- 🔍 **智能搜索**：支持按题目类型、关键词搜索和多种排序方式
+- 📊 **进度追踪**：自动记录做题进度和正确率，直观展示学习效果
+- 🔄 **答题记录**：保存用户答题历史，支持重做错题
+- 🌐 **中英对照**：支持中英文对照显示，提升学习效率
+- 📱 **响应式设计**：适配各种设备屏幕，随时随地学习
+- 🎯 **分页浏览**：优化大量题目的浏览体验
+- 💾 **本地存储**：无需登录，本地保存学习进度
 
-## 🎯 环境支持
-
-- Node.js >= 18.18.0
-- pnpm >= 8.0.0
-
-## 📦 快速开始
+## 🚀 快速开始
 
 ```bash
 # 克隆项目
-git clone [your-repo-url]
+git clone https://github.com/doweinide/english-exam-system.git
 
 # 安装依赖
+npm install
+# 或使用 pnpm
 pnpm install
 
 # 启动开发服务器
+npm run dev
+# 或使用 pnpm
 pnpm dev
 ```
 
-## 🔧 构建
+## 📚 系统结构
 
-```bash
-# 开发环境构建
-pnpm build:dev
-
-# 测试环境构建
-pnpm build:test
-
-# 生产环境构建
-pnpm build:prod
+```
+├── src/
+│   ├── data/           # 题库数据
+│   │   └── questionData.ts  # 题库JSON数据
+│   ├── stores/         # 状态管理
+│   │   └── question.ts      # 题目状态管理
+│   ├── types/          # 类型定义
+│   │   └── question.ts      # 题目相关类型定义
+│   ├── views/          # 页面组件
+│   │   ├── EnglishExamView.vue  # 首页（题目列表）
+│   │   └── ExamView.vue         # 做题页面
+│   └── ...
+└── ...
 ```
 
-## 📚 项目结构
+## 📝 自定义题库
+src\types\question.ts 看相关类型定义
+系统支持自定义题库，只需按照以下格式在 `src/data/questionData.ts` 文件中添加题目数据：
 
-\`\`\`
-├── src/
-│   ├── api/            # API 接口
-│   ├── assets/         # 静态资源
-│   ├── components/     # 公共组件
-│   ├── router/         # 路由配置
-│   ├── stores/         # Pinia 状态管理
-│   ├── types/          # TypeScript 类型
-│   ├── utils/          # 工具函数
-│   └── views/          # 页面组件
-├── public/             # 公共资源
-├── .env.*             # 环境变量配置
-├── vite.config.ts     # Vite 配置
-└── tailwind.config.js # Tailwind 配置
-\`\`\`
+```typescript
+// 题库数据结构
+const rawQuestionData: Chapter[] = [
+  {
+    id: 'chapter1',  // 章节ID
+    title: '第一套题',  // 章节标题
+    description: '包含阅读理解和完形填空',  // 章节描述
+    questionSets: [  // 题集列表
+      {
+        id: 'reading1',  // 题集ID（可选，系统会自动生成）
+        title: '阅读理解 1',  // 题集标题（可选，系统会自动生成）
+        description: '关于某个主题的阅读理解',  // 题集描述
+        type: 'reading',  // 题型：'reading'(阅读理解), 'cloze'(完形填空), 'translation'(英译汉)
+        article: {  // 阅读文章（仅阅读理解类型需要）
+          id: 'article1',
+          title: '文章标题',
+          titleCN: '文章中文标题',  // 可选
+          content: '英文文章内容...',
+          contentCN: '中文翻译内容...'  // 可选
+        },
+        questions: [  // 问题列表
+          {
+            id: 'q1-1',  // 问题ID
+            type: 'reading',  // 问题类型
+            text: '英文题目...',
+            textCN: '中文题目...',  // 可选
+            options: [  // 选项列表
+              {
+                id: 'q1-1-A',
+                text: '选项A',
+                textCN: '选项A中文'  // 可选
+              },
+              // 更多选项...
+            ],
+            correctOptionId: 'q1-1-A',  // 正确答案ID
+            explanation: '解析内容'  // 可选
+          },
+          // 更多问题...
+        ]
+      },
+      // 更多题集...
+    ]
+  },
+  // 更多章节...
+];
+```
 
-## 🔨 功能模块
+系统会自动处理题集ID和标题，您只需要关注题目内容即可。
+使用自己搭建的vue3 ts tailwind 架子
+```bash
+git clone https://github.com/doweinide/vue3-Ts-Tailwind-template
 
-### 🔐 请求加密
-- AES 加密/解密支持
-- MD5 加密
-- 可配置的加密开关
+```
+## 🔧 系统功能
 
-### 🌐 请求封装
-- 统一的错误处理
-- 请求/响应拦截
-- 取消请求支持
-- 自动刷新 token
+### 首页功能
 
-### 🛠 工具函数
-- 日期格式化
-- 金额格式化
-- 文件处理
-- 防抖/节流
-- 深拷贝
-- 类型判断
+- **章节浏览**：按章节组织题目，清晰展示学习内容
+- **题集筛选**：支持按题型（阅读理解、完形填空、英译汉）筛选
+- **关键词搜索**：快速查找特定题目
+- **排序功能**：支持按默认顺序、正确率、最近练习时间排序
+- **进度统计**：显示每个章节和题集的完成情况和正确率
+- **分页导航**：优化大量题目的浏览体验
 
-### ⚙️ 环境配置
-- 开发环境（development）
-- 测试环境（test）
-- 生产环境（production）
+### 做题功能
 
-### 📱 PWA 支持
-- 离线缓存
-- 自动更新
-- 添加到主屏幕
+- **中英对照**：支持中英文对照显示题目和选项
+- **即时反馈**：答题后立即显示正确答案和解析
+- **进度保存**：自动保存做题进度和答题记录
+- **题目导航**：支持在题目间自由切换
+- **完成统计**：显示当前题集的完成情况和正确率
 
-## 🔧 环境变量
+## 📱 响应式设计
 
-| 变量名 | 说明 | 可选值 |
-|--------|------|--------|
-| VITE_APP_ENV | 环境标识 | development/test/production |
-| VITE_USE_ENCRYPT | 是否启用加密 | true/false |
-| VITE_USE_COMPRESS | 是否启用压缩 | true/false |
-| VITE_USE_PWA | 是否启用 PWA | true/false |
-| VITE_USE_ANALYZE | 是否启用构建分析 | true/false |
-| VITE_USE_MOCK | 是否启用 Mock | true/false |
-| VITE_USE_DEVTOOLS | 是否启用开发工具 | true/false |
+系统采用响应式设计，适配各种设备屏幕：
 
-## 📝 开发指南
+- **桌面端**：优化大屏显示，提供更多内容和功能
+- **平板端**：调整布局，保持良好的阅读和操作体验
+- **移动端**：简化界面，专注核心功能，确保流畅使用
 
-### 添加新页面
-1. 在 \`src/views\` 下创建页面组件
-2. 在 \`src/router\` 中添加路由配置
-3. 在 \`src/api\` 中添加相关 API
+## 🛠️ 技术栈
 
-### 状态管理
-1. 在 \`src/stores\` 下创建 store
-2. 使用 \`defineStore\` 定义 store
-3. 在组件中使用 \`useStore\` 访问
-
-### API 调用示例
-\`\`\`typescript
-import { getUserInfo } from '@/api/user'
-
-// 获取用户信息
-const response = await getUserInfo()
-\`\`\`
-
-### 工具函数使用
-\`\`\`typescript
-import { formatDate, formatAmount } from '@/utils/common'
-
-// 格式化日期
-const date = formatDate(new Date(), 'YYYY-MM-DD')
-
-// 格式化金额
-const amount = formatAmount(1234.56)
-\`\`\`
+- **前端框架**：[Vue 3](https://vuejs.org/) + [Vite](https://vitejs.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- **UI 框架**：[Tailwind CSS](https://tailwindcss.com/) - 原子化 CSS 框架
+- **状态管理**：[Pinia](https://pinia.vuejs.org/) - Vue 状态管理
+- **路由管理**：[Vue Router](https://router.vuejs.org/) - Vue 官方路由
 
 ## 📄 License
 
